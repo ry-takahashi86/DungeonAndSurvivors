@@ -1,0 +1,10 @@
+# ninja log v5
+15	1057	7574789959147965	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	60586ef184bce849
+11	1060	7574789959207812	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	bab5ffb366f7c744
+24	1080	7574789959405249	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	8c2fddbcc64dbc2a
+33	1093	7574789959535418	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	c705bd02b69c8846
+28	1180	7574789960374347	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	c3f2a9e064d0a902
+1	1218	7574789960804693	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	19d419538acefec2
+19	1382	7574789962457296	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	9cc79040504a2de9
+7	1492	7574789963553851	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	ccd903da11f0aba6
+1493	1609	7574789964739699	D:/Unity/Project/DungeonAndSurvivors/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/714m6617/obj/arm64-v8a/libgame.so	d53d217080f7e6f0
