@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WolfAnimatorController
+  m_Controller: {fileID: 9100000, guid: 644e47cd463a7134fb4b8692b75b8f5d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: d3bcd5657dcfdad49a489aa97b751e6e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 67b10c73b809a974087212c42d956ea5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a32729b29ce217d43bfcef118e4db8d1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 42f3a617e43dada47b2eb70cbfef0543, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e05f595aa0ce8f7479c61ddf0285c1db, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 43864ec9c09b203448e82ff05d145a94, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9adfe8e02755490499df5dd97141981c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 61fcc2166273a304e95ca0027276e535, type: 2}
