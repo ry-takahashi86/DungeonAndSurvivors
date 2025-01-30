@@ -457,7 +457,6 @@ namespace MoreMountains.TopDownEngine
 
 			if (newWeapon != null)
 			{
-				Debug.Log("武器を生成します");
 				InstantiateWeapon(newWeapon, weaponID, combo);
 			}
 			else
@@ -468,7 +467,6 @@ namespace MoreMountains.TopDownEngine
 
 			if (OnWeaponChange != null)
 			{
-				Debug.Log("ChageWeaponイベントを発火します");
 				OnWeaponChange();
 			}
 		}

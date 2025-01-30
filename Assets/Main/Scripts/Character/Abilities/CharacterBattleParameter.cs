@@ -1,134 +1,66 @@
-using MoreMountains.InventoryEngine;
-using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-public class CharacterBattleParameter : CharacterAbility, MMEventListener<MMInventoryEvent>
+public class CharacterBattleParameter : CharacterAbility
 {
+    public enum CharacterTypes { Player, AI }
+
+    [Header("キャラクタータイプ")]
+    public CharacterTypes CharacterType = CharacterTypes.AI;
+
     [Header("バトルパラメータ")]
     public BattleParameter InitialBattleParameter;
-    public BattleParameterBase BattleParameter;
+    public BattleParameterPlayer InitialBattleParameterPlayer;
+    public BattleParameterBasePlayer BattleParameter;
 
-    [Header("パラメータのUI表示")]
-    public BattleParameterDisplay ParameterDisplay;
-
-    // 必須コンポーネント
-    protected CharacterInventoryAllEquip _equipInventoryAllEquip;
+    protected Weapon _weapon;
 
     protected override void Start()
     {
+        base.Start();
+
         // 初期パラメータ を反映
-        InitialBattleParameter.Data.CopyTo(BattleParameter);
-
-        // BattleParameter Display を取得
-        ParameterDisplay = FindFirstObjectByType<BattleParameterDisplay>();
-        if (ParameterDisplay != null)
+        if (InitialBattleParameter != null)
         {
-            ParameterDisplay.CharacterBattleParameter = this;
+            InitialBattleParameter.Data.CopyTo(BattleParameter);
+        }
+        else if (InitialBattleParameterPlayer != null)
+        {
+            InitialBattleParameterPlayer.Data.CopyTo(BattleParameter);
         }
 
-        // 必須コンポーネントを取得
-        _equipInventoryAllEquip = GetComponent<CharacterInventoryAllEquip>();
+        // パラメータを適用
+        ApplyBattleParameter();
+
+        // HPを最大値にリセット
+        _health.InitialHealth = BattleParameter.MaxHP;
+        _health.ResetHealthToMaxHealth();
     }
 
-    /// <summary>
-    /// イベントアイテムから対象インベントリを特定して格納されているアイテムを装備する
-    /// </summary>
-    /// <param name="battleParameter"></param>
-    public void BattleParameterUpdateEquipments(InventoryItem eventItem)
+    public void ApplyBattleParameter()
     {
-        if (_equipInventoryAllEquip != null)
+        if (BattleParameter == null) { return; }
+
+        // 他のコンポーネントにパラメータを渡す
+        // 例) HP, MP, 移動速度, 攻撃速度, スキルクールダウンなど
+        if (_health != null)
         {
-            switch (eventItem.TargetEquipmentInventoryName)
-            {
-                case "WeaponInventory":
-                    BattleParameter.AttackWeapon = _equipInventoryAllEquip.WeaponInventory.Content[0];
-                    break;
-                case "HeadInventory":
-                    BattleParameter.HeadWeapon = _equipInventoryAllEquip.HeadInventory.Content[0];
-                    break;
-                case "BodyInventory":
-                    BattleParameter.BodyWeapon = _equipInventoryAllEquip.BodyInventory.Content[0];
-                    break;
-                case "FootInventory":
-                    BattleParameter.FootWeapon = _equipInventoryAllEquip.FootInventory.Content[0];
-                    break;
-                case "AccessoryInventory":
-                    BattleParameter.AccessoryWeapon = _equipInventoryAllEquip.AccessoryInventory.Content[0];
-                    break;
-            }
+            _health.MaximumHealth = BattleParameter.MaxHP;
+            Debug.Log($"最大HP: {_health.MaximumHealth}");
         }
-    }
 
-    /// <summary>
-    /// イベントアイテムから対象インベントリを特定して装備を外す
-    /// </summary>
-    /// <param name="battleParameter"></param>
-    public void BattleParameterUpdateUnquipments(InventoryItem eventItem)
-    {
-        if (_equipInventoryAllEquip != null)
+        if (_characterMovement != null)
         {
-            switch (eventItem.TargetEquipmentInventoryName)
-            {
-                case "WeaponInventory":
-                    BattleParameter.AttackWeapon = null;
-                    break;
-                case "HeadInventory":
-                    BattleParameter.HeadWeapon = null;
-                    break;
-                case "BodyInventory":
-                    BattleParameter.BodyWeapon = null;
-                    break;
-                case "FootInventory":
-                    BattleParameter.FootWeapon = null;
-                    break;
-                case "AccessoryInventory":
-                    BattleParameter.AccessoryWeapon = null;
-                    break;
-            }
+            _characterMovement.MovementSpeed = _characterMovement.WalkSpeed * BattleParameter.MoveSpeedBonus;
+            Debug.Log($"移動速度: {_characterMovement.MovementSpeed}");
         }
-    }
 
-    /// <summary>
-    /// MMInventoryEventをキャッチしてそれに応じて処理を行う
-    /// </summary>
-    /// <param name="inventoryEvent">Inventory event.</param>
-    public virtual void OnMMEvent(MMInventoryEvent inventoryEvent)
-    {
-        switch (inventoryEvent.InventoryEventType)
+        // 攻撃速度、スキルクールダウンなども同様に反映
+        _weapon = GetComponentInChildren<Weapon>();
+        if (_weapon != null)
         {
-            case MMInventoryEventType.InventoryOpens:
-                print("Inventory Opens");
-                ParameterDisplay.UpdateDisplay();
-                break;
-            case MMInventoryEventType.ItemEquipped:
-                print("Inventory ItemEquipped");
-                BattleParameterUpdateEquipments(inventoryEvent.EventItem);
-                ParameterDisplay.UpdateDisplay();
-                break;
-            case MMInventoryEventType.ItemUnEquipped:
-                print("Inventory ItemUnEquipped");
-                BattleParameterUpdateUnquipments(inventoryEvent.EventItem);
-                ParameterDisplay.UpdateDisplay();
-                break;
+            _weapon.TimeBetweenUses = 2f - BattleParameter.AttackSpeed;
+            Debug.Log($"攻撃速度: {_weapon.TimeBetweenUses}");
         }
-    }
-
-    /// <summary>
-    /// Enableにすると、MMInventoryEventsのリッスンを開始する。
-    /// </summary>
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        this.MMEventStartListening<MMInventoryEvent>();
-    }
-
-    /// <summary>
-    /// Disableの場合、MMInventoryEventsのリッスンを停止する。
-    /// </summary>
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-        this.MMEventStopListening<MMInventoryEvent>();
     }
 }

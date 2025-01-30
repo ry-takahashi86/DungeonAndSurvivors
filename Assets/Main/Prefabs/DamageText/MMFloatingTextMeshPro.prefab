@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1390129691196447985}
   - component: {fileID: 9212669487376954193}
   - component: {fileID: 4791405907307182499}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: 'TMP SubMesh [Lato SDF Material + Lato-Bold SDF Atlas]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3258814973617716309}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Billboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 7785295853672088418}
   - component: {fileID: 6659172821923877623}
   - component: {fileID: 7284800961402381166}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: MMFloatingTextMeshPro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2676981279837942082}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: MovingContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7838352154683608450}
   - component: {fileID: 6466343129216784876}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: AppearFeedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -682,7 +682,7 @@ GameObject:
   - component: {fileID: 7099137272689354293}
   - component: {fileID: 8042657054365514525}
   - component: {fileID: 8990889530701189515}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

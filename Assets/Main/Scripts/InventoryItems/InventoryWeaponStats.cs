@@ -4,6 +4,15 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
+[Serializable]
+public class EquipmentBonus
+{
+    public int StrengthBonus;
+    public int DexterityBonus;
+    public int AgilityBonus;
+    public int IntelligenceBonus;
+}
+
 [CreateAssetMenu(fileName = "InventoryWeaponStats", menuName = "DungeonAndSurvivors/InventoryWeaponStats")]
 public class InventoryWeaponStats : InventoryWeapon
 {
@@ -13,6 +22,9 @@ public class InventoryWeaponStats : InventoryWeapon
 
     [Header("Defense Stats")]
     public int DefensePower;
+
+    [Header("Add Bonus")]
+    public EquipmentBonus EquipmentBonus;
 
     /// <summary>
     /// CharacterHandleWeaponに装備した武器データを渡す

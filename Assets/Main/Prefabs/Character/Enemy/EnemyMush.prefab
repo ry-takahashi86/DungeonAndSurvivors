@@ -39,6 +39,11 @@ PrefabInstance:
       propertyPath: TriggerFilter
       value: 195
       objectReference: {fileID: 0}
+    - target: {fileID: 3322692018435538643, guid: 7ad4079a1aca77d489b9719370c3b24b,
+        type: 3}
+      propertyPath: TriggerFilter
+      value: 195
+      objectReference: {fileID: 0}
     - target: {fileID: 4590465852287288221, guid: 7ad4079a1aca77d489b9719370c3b24b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -95,6 +100,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -253441559, guid: b81c696040a34794ea0962b32b474e70,
         type: 3}
+    - target: {fileID: 6777588650194733229, guid: 7ad4079a1aca77d489b9719370c3b24b,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
