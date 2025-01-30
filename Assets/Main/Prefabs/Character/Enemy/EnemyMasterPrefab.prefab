@@ -153,8 +153,8 @@ GameObject:
   - component: {fileID: 3272370086358955210}
   - component: {fileID: -2754895816126963147}
   - component: {fileID: 1108523444638303741}
-  - component: {fileID: 4973066463575842772}
   - component: {fileID: 3322692018435538643}
+  - component: {fileID: -7931889708461560150}
   m_Layer: 13
   m_Name: EnemyMasterPrefab
   m_TagString: Untagged
@@ -813,7 +813,7 @@ MonoBehaviour:
   NestDrawnHealthBar: 0
   Billboard: 0
   InstantiatedOnDeath: {fileID: 0}
-  HealthBarOffset: {x: 0, y: 2, z: 0}
+  HealthBarOffset: {x: 0, y: 1.5, z: 0}
   AlwaysVisible: 0
   DisplayDurationOnHit: 1
   HideBarAtZero: 1
@@ -848,45 +848,6 @@ MonoBehaviour:
   RandomOffsetRange: {x: 0, y: 0, z: 0}
   DropDelay: 0.95
   DropChance: 30
---- !u!114 &4973066463575842772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2490538515427847325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3870a8f16d8eb2b46865f96b94f33144, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
-  InitialBattleParameter: {fileID: 11400000, guid: 01d6a4ac59441c945ad63183d437a6d1,
-    type: 2}
-  BattleParameter:
-    HP: 0
-    MaxHP: 0
-    Strength: 0
-    Dexterity: 0
-    Agility: 0
-    Intelligence: 0
-    Level: 0
-    Exp: 0
-    Money: 0
-    AttackWeapon: {fileID: 0}
-    HeadWeapon: {fileID: 0}
-    BodyWeapon: {fileID: 0}
-    FootWeapon: {fileID: 0}
-    AccessoryWeapon: {fileID: 0}
-  ParameterDisplay: {fileID: 0}
 --- !u!114 &3322692018435538643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -936,6 +897,44 @@ MonoBehaviour:
   HitAnythingEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-7931889708461560150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2490538515427847325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3870a8f16d8eb2b46865f96b94f33144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  CharacterType: 1
+  InitialBattleParameter: {fileID: 11400000, guid: 5b144f446398e604180fea3cf71960bd,
+    type: 2}
+  InitialBattleParameterPlayer: {fileID: 0}
+  BattleParameter:
+    _strength: 0
+    _dexterity: 0
+    _agility: 0
+    _intelligence: 0
+    AttackWeapon: {fileID: 0}
+    HeadWeapon: {fileID: 0}
+    BodyWeapon: {fileID: 0}
+    FootWeapon: {fileID: 0}
+    AccessoryWeapon: {fileID: 0}
+    Level: 0
+    Exp: 0
+    Money: 0
 --- !u!1 &3879520155133928519
 GameObject:
   m_ObjectHideFlags: 0

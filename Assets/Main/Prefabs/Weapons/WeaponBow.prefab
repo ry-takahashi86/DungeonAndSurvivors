@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b1174ff4d3dcb4da6a6d4e0ae5bb77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DelayBeforeShootAfterAcquiringTarget: 1
+  DelayBeforeShootAfterAcquiringTarget: 0
   OnlyAutoShootIfOwnerIsIdle: 1
 --- !u!114 &6317319422168844069
 MonoBehaviour:
@@ -277,8 +277,8 @@ MonoBehaviour:
   ObjectPooler: {fileID: 0}
   SpawnFeedbacks: []
   TestShootButton: 0
-  MinDamageCaused: 0
-  MaxDamageCaused: 0
+  MinDamageCaused: 5
+  MaxDamageCaused: 10
 --- !u!1 &7452741543965268277
 GameObject:
   m_ObjectHideFlags: 0

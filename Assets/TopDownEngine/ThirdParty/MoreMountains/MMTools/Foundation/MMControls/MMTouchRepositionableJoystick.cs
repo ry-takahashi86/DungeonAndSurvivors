@@ -105,7 +105,15 @@ namespace MoreMountains.Tools
 		/// <param name="eventData">Event data.</param>
 		public override void OnPointerUp(PointerEventData eventData)
 		{
-			base.OnPointerUp(eventData);
+			// base.OnPointerUp(eventData);
+			ResetJoystick();
+
+			// タッチのときの処理
+			if (Magnitude <= 0f)
+			{
+				OnPointerUpEvent.Invoke();
+			}
+			GetComponent<CanvasGroup>().alpha = 0f;
 
 			if (ResetPositionToInitialOnRelease)
 			{

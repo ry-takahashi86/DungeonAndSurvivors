@@ -1,5 +1,6 @@
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using UnityEngine;
 
 public class DamageOnTouchStats : DamageOnTouch
 {
@@ -26,8 +27,13 @@ public class DamageOnTouchStats : DamageOnTouch
             {
                 Owner = gameObject;
             }
-            // ダメージを計算して取得する
-            float randomDamage = GenericMethods.CalculateDamage(MinDamageCaused, MaxDamageCaused, Owner, health.gameObject);
+
+            // ダメージを決定
+            float randomDamage = Random.Range(MinDamageCaused, MaxDamageCaused);
+            Debug.Log($"攻撃側: {Owner.name}, 防御側: {health.gameObject.name}");
+            CharacterBattleParameter _owner = Owner.MMGetComponentNoAlloc<CharacterBattleParameter>();
+            CharacterBattleParameter _target = health.gameObject.MMGetComponentNoAlloc<CharacterBattleParameter>();
+            randomDamage = GenericMethods.CalculateDamage(MinDamageCaused, MaxDamageCaused, _owner.BattleParameter, _target.BattleParameter);
 
             // ノックバックを適用
             ApplyKnockback(randomDamage, TypedDamages);

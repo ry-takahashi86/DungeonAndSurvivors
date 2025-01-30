@@ -1267,7 +1267,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Epic_UserInterface_52
+      name: Epic_UserInterface_HealthBarFront
       rect:
         serializedVersion: 2
         x: 320
@@ -1276,7 +1276,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 6, y: 16, z: 6, w: 12}
       customData: 
       outline: []
       physicsShape: []
@@ -1311,7 +1311,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Epic_UserInterface_54
+      name: Epic_UserInterface_InventorySlotEmpty
       rect:
         serializedVersion: 2
         x: 0
@@ -1333,7 +1333,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Epic_UserInterface_55
+      name: Epic_UserInterface_InventorySlotHighlighted
       rect:
         serializedVersion: 2
         x: 32
@@ -1465,7 +1465,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Epic_UserInterface_61
+      name: Epic_UserInterface_ProgressBarBackground
       rect:
         serializedVersion: 2
         x: 224
@@ -1474,7 +1474,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 8, y: 12, z: 8, w: 13}
       customData: 
       outline: []
       physicsShape: []
@@ -1619,7 +1619,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Epic_UserInterface_68
+      name: Epic_UserInterface_InventoryWindow
       rect:
         serializedVersion: 2
         x: 0
@@ -1628,7 +1628,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 9, y: 12, z: 16, w: 12}
       customData: 
       outline: []
       physicsShape: []
@@ -1672,7 +1672,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 15, y: 15, z: 15, w: 15}
+      border: {x: 5, y: 6, z: 5, w: 6}
       customData: 
       outline: []
       physicsShape: []
@@ -1694,7 +1694,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 15, y: 16, z: 15, w: 12}
       customData: 
       outline: []
       physicsShape: []
@@ -1707,7 +1707,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Epic_UserInterface_72
+      name: Epic_UserInterface_BattleParameterWindow
       rect:
         serializedVersion: 2
         x: 128
@@ -1716,7 +1716,7 @@ TextureImporter:
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 8, y: 8, z: 8, w: 8}
       customData: 
       outline: []
       physicsShape: []
@@ -1817,7 +1817,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Epic_UserInterface_77
+      name: Epic_UserInterface_EquipInventory_Head
       rect:
         serializedVersion: 2
         x: 32
@@ -1839,7 +1839,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Epic_UserInterface_78
+      name: Epic_UserInterface_EquipInventory_Body
       rect:
         serializedVersion: 2
         x: 64
@@ -1861,7 +1861,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Epic_UserInterface_79
+      name: Epic_UserInterface_EquipInventory_Hand
       rect:
         serializedVersion: 2
         x: 96
@@ -1883,7 +1883,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Epic_UserInterface_80
+      name: Epic_UserInterface_EquipInventory_Weapon
       rect:
         serializedVersion: 2
         x: 128
@@ -1905,7 +1905,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Epic_UserInterface_81
+      name: Epic_UserInterface_EquipInventory_Accesory
       rect:
         serializedVersion: 2
         x: 160
@@ -1927,7 +1927,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Epic_UserInterface_82
+      name: Epic_UserInterface_EquipInventory_Foot
       rect:
         serializedVersion: 2
         x: 192
@@ -4086,40 +4086,28 @@ TextureImporter:
       Epic_UserInterface_5: -845101829
       Epic_UserInterface_50: -2086806754
       Epic_UserInterface_51: -1320378247
-      Epic_UserInterface_52: 1179170551
       Epic_UserInterface_53: -1925561201
-      Epic_UserInterface_54: 1238537554
-      Epic_UserInterface_55: 873235702
       Epic_UserInterface_56: -1639855151
       Epic_UserInterface_57: -1393524188
       Epic_UserInterface_58: 1915041108
       Epic_UserInterface_59: -2083801583
       Epic_UserInterface_6: -1304076798
       Epic_UserInterface_60: -404227777
-      Epic_UserInterface_61: 108197480
       Epic_UserInterface_62: -748063007
       Epic_UserInterface_63: -2048637665
       Epic_UserInterface_64: -67882104
       Epic_UserInterface_65: -998363990
       Epic_UserInterface_66: 1411567843
       Epic_UserInterface_67: -100306567
-      Epic_UserInterface_68: -159450943
       Epic_UserInterface_69: 748396791
       Epic_UserInterface_7: 54688942
       Epic_UserInterface_70: 252150042
       Epic_UserInterface_71: 1893985782
-      Epic_UserInterface_72: 837073472
       Epic_UserInterface_73: 1445663741
       Epic_UserInterface_74: 1183204468
       Epic_UserInterface_75: 767417124
       Epic_UserInterface_76: -1365403060
-      Epic_UserInterface_77: -1749807126
-      Epic_UserInterface_78: -1845202579
-      Epic_UserInterface_79: -42083068
       Epic_UserInterface_8: 890426779
-      Epic_UserInterface_80: -1688146203
-      Epic_UserInterface_81: -1884772047
-      Epic_UserInterface_82: -1810225551
       Epic_UserInterface_83: -923502287
       Epic_UserInterface_84: 1516134467
       Epic_UserInterface_85: -929235047
@@ -4138,6 +4126,18 @@ TextureImporter:
       Epic_UserInterface_97: -2081671126
       Epic_UserInterface_98: 2007738164
       Epic_UserInterface_99: 1792378330
+      Epic_UserInterface_BattleParameterWindow: 837073472
+      Epic_UserInterface_EquipInventory_Accesory: -1884772047
+      Epic_UserInterface_EquipInventory_Body: -1845202579
+      Epic_UserInterface_EquipInventory_Foot: -1810225551
+      Epic_UserInterface_EquipInventory_Hand: -42083068
+      Epic_UserInterface_EquipInventory_Head: -1749807126
+      Epic_UserInterface_EquipInventory_Weapon: -1688146203
+      Epic_UserInterface_HealthBarFront: 1179170551
+      Epic_UserInterface_InventorySlotEmpty: 1238537554
+      Epic_UserInterface_InventorySlotHighlighted: 873235702
+      Epic_UserInterface_InventoryWindow: -159450943
+      Epic_UserInterface_ProgressBarBackground: 108197480
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

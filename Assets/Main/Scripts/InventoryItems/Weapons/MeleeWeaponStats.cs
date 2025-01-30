@@ -1,3 +1,4 @@
+using System.Collections;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -95,5 +96,32 @@ public class MeleeWeaponStats : MeleeWeapon
         {
             _damageOnTouch.IgnoreGameObject(Owner.gameObject);
         }
+    }
+
+
+    /// <summary>
+    /// Triggers an attack, turning the damage area on and then off
+    /// </summary>
+    /// <returns>The weapon attack.</returns>
+    protected override IEnumerator MeleeWeaponAttack()
+    {
+        // 攻撃開始している時は、再実行されないよう中断する
+        if (_attackInProgress) { yield break; }
+
+        // 攻撃中フラグを立てて、初期遅延時間を待つ
+        _attackInProgress = true;
+        yield return new WaitForSeconds(InitialDelay);
+
+        // 攻撃中に移動状態が変わった場合は、攻撃コルーチンを中止する
+        if (Owner.MovementState.CurrentState == CharacterStates.MovementStates.Walking)
+        {
+            _attackInProgress = false;
+            yield break;
+        }
+
+        EnableDamageArea();
+        yield return new WaitForSeconds(ActiveDuration);
+        DisableDamageArea();
+        _attackInProgress = false;
     }
 }
