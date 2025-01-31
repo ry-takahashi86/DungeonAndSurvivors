@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09cc02aee6404e4429c9941f0fa93e0f, type: 3}
-  m_Name: FootStats
+  m_Name: Body_LeatherClothing
   m_EditorClassIdentifier: 
-  ItemID: FootStats
+  ItemID: LeatherClothing
   TargetInventoryName: MainInventory
   ForceSlotIndex: 0
   TargetIndex: 0
@@ -38,10 +38,10 @@ MonoBehaviour:
     AllowEquipShortcut: 1
     AllowUseShortcut: 1
   Quantity: 1
-  ItemName: FootStats
-  ShortDescription: "\u30C6\u30B9\u30C8\u7528"
-  Description: "\u666E\u901A\u306E\u9774\nArmor Rating 2"
-  Icon: {fileID: 258317750, guid: 4922dcc7464bf0e47b406f89ff6dda7e, type: 3}
+  ItemName: "\u76AE\u306E\u670D"
+  ShortDescription: 
+  Description: "\u57FA\u790E\u6027\u80FD\n\u9632\u5FA1\u529B: 5"
+  Icon: {fileID: 2141535277, guid: 4922dcc7464bf0e47b406f89ff6dda7e, type: 3}
   Prefab: {fileID: 170916, guid: ecc694c278b07d444ab2e0635ec4711a, type: 3}
   ForcePrefabDropQuantity: 0
   PrefabDropQuantity: 1
@@ -90,7 +90,7 @@ MonoBehaviour:
   MaximumStack: 1
   MaximumQuantity: 999999999
   ItemClass: 1
-  TargetEquipmentInventoryName: FootInventory
+  TargetEquipmentInventoryName: BodyInventory
   EquippedSound: {fileID: 0}
   UsedSound: {fileID: 0}
   MovedSound: {fileID: 0}
@@ -101,4 +101,6 @@ MonoBehaviour:
   HandleWeaponID: 1
   WeaponMinDamage: 0
   WeaponMaxDamage: 0
-  DefensePower: 2
+  ArmorRating: 5
+  ItemRarity: 0
+  AdditionalBonuses: []

@@ -3467,7 +3467,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RA_ItemIcons_152
+      name: RA_ItemIcons_Foot_TatteredShoes
       rect:
         serializedVersion: 2
         x: 384
@@ -7537,7 +7537,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RA_ItemIcons_337
+      name: RA_ItemIcons_Accessory_Warrior'sHeaddress
       rect:
         serializedVersion: 2
         x: 272
@@ -11387,7 +11387,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RA_ItemIcons_512
+      name: RA_ItemIcons_Bow_PracticeBow
       rect:
         serializedVersion: 2
         x: 0
@@ -17019,7 +17019,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RA_ItemIcons_768
+      name: RA_ItemIcons_Head_LeatherHelmet
       rect:
         serializedVersion: 2
         x: 0
@@ -17195,7 +17195,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RA_ItemIcons_776
+      name: RA_ItemIcons_Head_LeatherHood
       rect:
         serializedVersion: 2
         x: 128
@@ -17349,7 +17349,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RA_ItemIcons_783
+      name: RA_ItemIcons_Body_LeatherClothing
       rect:
         serializedVersion: 2
         x: 240
@@ -21974,7 +21974,6 @@ TextureImporter:
       RA_ItemIcons_15: 1810705572
       RA_ItemIcons_150: 790164725
       RA_ItemIcons_151: 2080806093
-      RA_ItemIcons_152: -959336302
       RA_ItemIcons_153: 1548965152
       RA_ItemIcons_154: 669786972
       RA_ItemIcons_155: -115739842
@@ -22177,7 +22176,6 @@ TextureImporter:
       RA_ItemIcons_334: -1201104411
       RA_ItemIcons_335: 1067062314
       RA_ItemIcons_336: -1154318224
-      RA_ItemIcons_337: 1890537319
       RA_ItemIcons_338: 129095193
       RA_ItemIcons_339: -112122503
       RA_ItemIcons_34: -930148084
@@ -22372,7 +22370,6 @@ TextureImporter:
       RA_ItemIcons_51: -1355239241
       RA_ItemIcons_510: -1661784639
       RA_ItemIcons_511: -182153758
-      RA_ItemIcons_512: 1412797029
       RA_ItemIcons_513: -2147025394
       RA_ItemIcons_514: 1321757713
       RA_ItemIcons_515: -2032717924
@@ -22654,7 +22651,6 @@ TextureImporter:
       RA_ItemIcons_765: -155349648
       RA_ItemIcons_766: 732448253
       RA_ItemIcons_767: -1763349811
-      RA_ItemIcons_768: 1405546994
       RA_ItemIcons_769: 1966546453
       RA_ItemIcons_77: 632842627
       RA_ItemIcons_770: -542247946
@@ -22663,7 +22659,6 @@ TextureImporter:
       RA_ItemIcons_773: -980639581
       RA_ItemIcons_774: 743097856
       RA_ItemIcons_775: 1024048437
-      RA_ItemIcons_776: 828726149
       RA_ItemIcons_777: -450429428
       RA_ItemIcons_778: 929789160
       RA_ItemIcons_779: -2107186602
@@ -22671,7 +22666,6 @@ TextureImporter:
       RA_ItemIcons_780: 1883485329
       RA_ItemIcons_781: -1910820530
       RA_ItemIcons_782: -989524675
-      RA_ItemIcons_783: 431968012
       RA_ItemIcons_784: -1704610364
       RA_ItemIcons_785: 1282942104
       RA_ItemIcons_786: -2028169615
@@ -22901,7 +22895,13 @@ TextureImporter:
       RA_ItemIcons_988: 1869764452
       RA_ItemIcons_989: 1870131373
       RA_ItemIcons_99: -1269933005
+      RA_ItemIcons_Accessory_Warrior'sHeaddress: 1890537319
+      RA_ItemIcons_Body_LeatherClothing: 431968012
+      RA_ItemIcons_Bow_PracticeBow: 1412797029
       RA_ItemIcons_DaemonSword: -1882572498
+      RA_ItemIcons_Foot_TatteredShoes: -959336302
+      RA_ItemIcons_Head_LeatherHelmet: 1405546994
+      RA_ItemIcons_Head_LeatherHood: 828726149
       RA_ItemIcons_Sword_Falchion: -1399734820
       RA_ItemIcons_Sword_IronPipe: -2099528513
       RA_ItemIcons_Sword_SoldierSword: -2125601135

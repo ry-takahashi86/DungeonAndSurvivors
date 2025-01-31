@@ -40,7 +40,8 @@ MonoBehaviour:
   Quantity: 1
   ItemName: "\u5175\u58EB\u306E\u5263"
   ShortDescription: 
-  Description: "\u6B66\u5668\u30C0\u30E1\u30FC\u30B8: 8~12"
+  Description: "\u57FA\u790E\u6027\u80FD\n\r\u6B66\u5668\u30C0\u30E1\u30FC\u30B8:
+    8 - 12"
   Icon: {fileID: -2125601135, guid: 4922dcc7464bf0e47b406f89ff6dda7e, type: 3}
   Prefab: {fileID: 170916, guid: ecc694c278b07d444ab2e0635ec4711a, type: 3}
   ForcePrefabDropQuantity: 0
@@ -102,4 +103,6 @@ MonoBehaviour:
   HandleWeaponID: 1
   WeaponMinDamage: 8
   WeaponMaxDamage: 12
-  DefensePower: 0
+  ArmorRating: 0
+  ItemRarity: 0
+  AdditionalBonuses: []

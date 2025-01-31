@@ -153,5 +153,37 @@ MonoBehaviour:
   PickableIfInventoryIsFull: 0
   DisableObjectWhenDepleted: 1
   RequirePlayerTag: 1
-  inventoryItemDataBase: {fileID: 11400000, guid: 34ddb32b325c1724296da2cc2e7addad,
+  InventoryWeaponStatsDataBase: {fileID: 11400000, guid: 34ddb32b325c1724296da2cc2e7addad,
     type: 2}
+  InventoryWeaponStatsData: {fileID: 0}
+  bonusCandidates:
+  - parameterType: 0
+    minValue: 1
+    maxValue: 5
+  - parameterType: 1
+    minValue: 1
+    maxValue: 5
+  - parameterType: 2
+    minValue: 1
+    maxValue: 3
+  - parameterType: 3
+    minValue: 5
+    maxValue: 30
+  - parameterType: 4
+    minValue: 1
+    maxValue: 5
+  - parameterType: 5
+    minValue: 1
+    maxValue: 10
+  - parameterType: 6
+    minValue: 1
+    maxValue: 3
+  - parameterType: 7
+    minValue: 1
+    maxValue: 3
+  - parameterType: 8
+    minValue: 1
+    maxValue: 5
+  - parameterType: 9
+    minValue: 1
+    maxValue: 10

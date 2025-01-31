@@ -3,7 +3,7 @@ using MoreMountains.InventoryEngine;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "InventoryItemDataBase", menuName = "DungeonAndSurvivors/InventoryItemDataBase")]
-public class InventoryItemDataBase : ScriptableObject
+public class InventoryWeaponStatsDataBase : ScriptableObject
 {
-    public List<InventoryItem> InventoryItems = new List<InventoryItem>();
+    public List<InventoryWeaponStats> InventoryItems = new List<InventoryWeaponStats>();
 }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09cc02aee6404e4429c9941f0fa93e0f, type: 3}
-  m_Name: Sword_IronPipe
+  m_Name: Head_LeatherHelmet
   m_EditorClassIdentifier: 
-  ItemID: IronPipe
+  ItemID: LeatherHelmet
   TargetInventoryName: MainInventory
   ForceSlotIndex: 0
   TargetIndex: 0
@@ -38,11 +38,10 @@ MonoBehaviour:
     AllowEquipShortcut: 1
     AllowUseShortcut: 1
   Quantity: 1
-  ItemName: "\u9244\u30D1\u30A4\u30D7"
+  ItemName: "\u76AE\u306E\u515C"
   ShortDescription: 
-  Description: "\u57FA\u790E\u6027\u80FD\n\r\u6B66\u5668\u30C0\u30E1\u30FC\u30B8:
-    5 - 10"
-  Icon: {fileID: -2099528513, guid: 4922dcc7464bf0e47b406f89ff6dda7e, type: 3}
+  Description: "\u57FA\u790E\u6027\u80FD\n\r\u9632\u5FA1\u529B: 3"
+  Icon: {fileID: -2042870357, guid: 4922dcc7464bf0e47b406f89ff6dda7e, type: 3}
   Prefab: {fileID: 170916, guid: ecc694c278b07d444ab2e0635ec4711a, type: 3}
   ForcePrefabDropQuantity: 0
   PrefabDropQuantity: 1
@@ -90,19 +89,18 @@ MonoBehaviour:
     MaximumScale: {x: 1, y: 1, z: 1}
   MaximumStack: 1
   MaximumQuantity: 999999999
-  ItemClass: 2
-  TargetEquipmentInventoryName: WeaponInventory
+  ItemClass: 1
+  TargetEquipmentInventoryName: HeadInventory
   EquippedSound: {fileID: 0}
   UsedSound: {fileID: 0}
   MovedSound: {fileID: 0}
   DroppedSound: {fileID: 0}
   UseDefaultSoundsIfNull: 1
-  EquippableWeapon: {fileID: -5212261072117012738, guid: e323b07555643764399dfcae361206ae,
-    type: 3}
+  EquippableWeapon: {fileID: 0}
   AutoEquipMode: 0
   HandleWeaponID: 1
-  WeaponMinDamage: 5
-  WeaponMaxDamage: 10
-  ArmorRating: 0
+  WeaponMinDamage: 0
+  WeaponMaxDamage: 0
+  ArmorRating: 3
   ItemRarity: 0
   AdditionalBonuses: []
