@@ -1,36 +1,155 @@
 using System;
+using System.Collections.Generic;
+using System.Text;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-[Serializable]
-public class EquipmentBonus
+/// <summary>
+/// アイテムのレアリティ
+/// </summary>
+public enum Rarity
 {
-    public int StrengthBonus;
-    public int DexterityBonus;
-    public int AgilityBonus;
-    public int IntelligenceBonus;
+    Common,
+    Uncommon,
+    Rare,
+    Epic,
+    Legendary
+}
+
+/// <summary>
+/// 追加ボーナスで上昇させたいパラメータ種別を定義します。
+/// （Strength, Agility, CriticalRate, MaxHP 等）
+/// </summary>
+public enum ParameterType
+{
+    Strength,
+    Dexterity,
+    Agility,
+    MaxHP,
+    PhysicalDamageBonus,
+    CriticalRate,
+    SkillCooldownRate,
+    MoveSpeedBonus,
+    AttackSpeed,
+    PhysicalDamageReductionRate
+}
+
+/// <summary>
+/// 追加ボーナス1つ分の情報
+/// </summary>
+[Serializable]
+public class ItemBonus
+{
+    public ParameterType ParameterType;
+    public float Value;
+
+    public ItemBonus(ParameterType parameterType, float value)
+    {
+        this.ParameterType = parameterType;
+        this.Value = value;
+    }
 }
 
 [CreateAssetMenu(fileName = "InventoryWeaponStats", menuName = "DungeonAndSurvivors/InventoryWeaponStats")]
 public class InventoryWeaponStats : InventoryWeapon
 {
+    [Header("装備アイテムデータ")]
     [Header("Weapon Stats")]
     public int WeaponMinDamage;
     public int WeaponMaxDamage;
 
     [Header("Defense Stats")]
-    public int DefensePower;
+    public int ArmorRating;
 
-    [Header("Add Bonus")]
-    public EquipmentBonus EquipmentBonus;
+    [Header("Rarity & Bonus")]
+    public Rarity ItemRarity;
+
+    [Tooltip("レアリティに応じて付与される追加ボーナス")]
+    public List<ItemBonus> AdditionalBonuses = new List<ItemBonus>();
+
+    // パラメータ種別ごとに割り当てる文字色（HTML カラーコード）
+    private static readonly Dictionary<Rarity, string> _rarityColors = new Dictionary<Rarity, string>()
+    {
+        { Rarity.Common, "#FFFFFF" },       // 白
+        { Rarity.Uncommon, "#00FF00" },     // 緑
+        { Rarity.Rare, "#0000FF" },         // 青
+        { Rarity.Epic, "#800080" },         // 紫
+        { Rarity.Legendary, "#FFA500" },    // オレンジ
+    };
 
     /// <summary>
-    /// CharacterHandleWeaponに装備した武器データを渡す
+    /// 性能をDescriptionに反映する
     /// </summary>
-    /// <param name="newWeapon"></param>
-    /// <param name="playerID"></param>
+    public void UpdateDescription()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        // レアリティと基本性能の表示
+        string colorCode;
+        if (!_rarityColors.TryGetValue(ItemRarity, out colorCode))
+        {
+            colorCode = "#FFFFFF";
+        }
+        string coloredLine = $"<color={colorCode}>{ItemRarity}</color>";
+        sb.AppendLine($"レアリティ: {coloredLine}");
+
+        float _avarageDamage = (WeaponMinDamage + WeaponMaxDamage) / 2;
+        if (_avarageDamage > 0f)
+        {
+            sb.AppendLine($"武器ダメージ: {WeaponMinDamage} - {WeaponMaxDamage}");
+        }
+        if (ArmorRating != 0)
+        {
+            sb.AppendLine($"防御力: {ArmorRating}");
+        }
+
+        // 追加ボーナスの内容を文字列化
+        if (AdditionalBonuses != null && AdditionalBonuses.Count > 0)
+        {
+            foreach (ItemBonus bonus in AdditionalBonuses)
+            {
+                string paramStr = ParameterTypeToString(bonus.ParameterType);
+                colorCode = "#00bfff";
+                coloredLine = $"<color={colorCode}>{paramStr} +{bonus.Value}</color>";
+                sb.AppendLine($"- {coloredLine}");
+            }
+        }
+
+        // まとめた文字列を Description に反映
+        Description = sb.ToString();
+    }
+
+    public string ParameterTypeToString(ParameterType param)
+    {
+        switch (param)
+        {
+            case ParameterType.Strength:
+                return "力";
+            case ParameterType.Dexterity:
+                return "器用さ";
+            case ParameterType.Agility:
+                return "敏捷性";
+            case ParameterType.MaxHP:
+                return "最大HP";
+            case ParameterType.PhysicalDamageBonus:
+                return "物理ダメージボーナス";
+            case ParameterType.CriticalRate:
+                return "クリティカル率";
+            case ParameterType.SkillCooldownRate:
+                return "スキルクールダウン減少率";
+            case ParameterType.MoveSpeedBonus:
+                return "移動速度ボーナス";
+            case ParameterType.AttackSpeed:
+                return "攻撃速度";
+            case ParameterType.PhysicalDamageReductionRate:
+                return "物理ダメージ軽減率";
+            default:
+                return "";
+        }
+    }
+
     protected override void EquipWeapon(Weapon newWeapon, string playerID)
     {
         if (EquippableWeapon == null)

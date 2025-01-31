@@ -40,7 +40,8 @@ MonoBehaviour:
   Quantity: 1
   ItemName: "\u30D5\u30A1\u30EB\u30B7\u30AA\u30F3"
   ShortDescription: 
-  Description: "\u6B66\u5668\u30C0\u30E1\u30FC\u30B8: 4~8"
+  Description: "\u57FA\u790E\u6027\u80FD\n\r\u6B66\u5668\u30C0\u30E1\u30FC\u30B8:
+    4 - 8"
   Icon: {fileID: -1399734820, guid: 4922dcc7464bf0e47b406f89ff6dda7e, type: 3}
   Prefab: {fileID: 170916, guid: ecc694c278b07d444ab2e0635ec4711a, type: 3}
   ForcePrefabDropQuantity: 0
@@ -100,11 +101,8 @@ MonoBehaviour:
     type: 3}
   AutoEquipMode: 0
   HandleWeaponID: 1
-  WeaponMinDamage: 2
-  WeaponMaxDamage: 10
-  DefensePower: 0
-  EquipmentBonus:
-    StrengthBonus: 0
-    DexterityBonus: 0
-    AgilityBonus: 0
-    IntelligenceBonus: 0
+  WeaponMinDamage: 4
+  WeaponMaxDamage: 8
+  ArmorRating: 0
+  ItemRarity: 0
+  AdditionalBonuses: []

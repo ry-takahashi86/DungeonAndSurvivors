@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09cc02aee6404e4429c9941f0fa93e0f, type: 3}
   m_Name: Sword_DaemonSword
   m_EditorClassIdentifier: 
-  ItemID: SwordStats
+  ItemID: DaemonSword
   TargetInventoryName: MainInventory
   ForceSlotIndex: 0
   TargetIndex: 0
@@ -40,8 +40,8 @@ MonoBehaviour:
   Quantity: 1
   ItemName: "\u30C7\u30FC\u30E2\u30F3\u30BD\u30FC\u30C9"
   ShortDescription: 
-  Description: "\u6B66\u5668\u30C0\u30E1\u30FC\u30B8: 10~30\n\u9632\u5FA1\u529B:
-    -10"
+  Description: "\u57FA\u790E\u6027\u80FD\n\r\u6B66\u5668\u30C0\u30E1\u30FC\u30B8:
+    10 - 30\n\u9632\u5FA1\u529B: -10"
   Icon: {fileID: -1882572498, guid: 4922dcc7464bf0e47b406f89ff6dda7e, type: 3}
   Prefab: {fileID: 170916, guid: ecc694c278b07d444ab2e0635ec4711a, type: 3}
   ForcePrefabDropQuantity: 0
@@ -103,9 +103,6 @@ MonoBehaviour:
   HandleWeaponID: 1
   WeaponMinDamage: 10
   WeaponMaxDamage: 30
-  DefensePower: -10
-  EquipmentBonus:
-    StrengthBonus: 10
-    DexterityBonus: 10
-    AgilityBonus: 10
-    IntelligenceBonus: 10
+  ArmorRating: -10
+  ItemRarity: 0
+  AdditionalBonuses: []
