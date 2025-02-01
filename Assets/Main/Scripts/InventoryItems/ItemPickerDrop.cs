@@ -77,15 +77,20 @@ public class ItemPickerDrop : ItemPicker
     {
         new BonusCandidate(ParameterType.Strength, 1, 5),
         new BonusCandidate(ParameterType.Dexterity, 1, 5),
-        new BonusCandidate(ParameterType.Agility, 1, 3),
+        new BonusCandidate(ParameterType.Agility, 1, 5),
+        new BonusCandidate(ParameterType.Intelligence, 1, 5),
 
         new BonusCandidate(ParameterType.MaxHP, 5, 30),
-        new BonusCandidate(ParameterType.CriticalRate, 1, 5),
         new BonusCandidate(ParameterType.PhysicalDamageBonus, 1, 10),
+        new BonusCandidate(ParameterType.CriticalRate, 1, 5),
         new BonusCandidate(ParameterType.SkillCooldownRate, 1, 3),
         new BonusCandidate(ParameterType.MoveSpeedBonus, 1, 3),
         new BonusCandidate(ParameterType.AttackSpeed, 1, 5),
         new BonusCandidate(ParameterType.PhysicalDamageReductionRate, 1, 10),
+
+        new BonusCandidate(ParameterType.MaxMP, 1, 3),
+        new BonusCandidate(ParameterType.MagicDamageBonus, 1, 5),
+        new BonusCandidate(ParameterType.MagicDamageReductionRate, 1, 10),
     };
 
     protected override void Initialization()

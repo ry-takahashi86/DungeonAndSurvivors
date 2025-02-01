@@ -41,6 +41,15 @@ public class CharacterBattleParameter : CharacterAbility
     {
         if (BattleParameter == null) { return; }
 
+        Debug.Log("バトルパラメータが更新されました-------------------");
+
+        Debug.Log("基礎パラメータ------------------------------------");
+        Debug.Log($"Strength: {BattleParameter.EffectiveStrength}");
+        Debug.Log($"Dexterity: {BattleParameter.EffectiveDexterity}");
+        Debug.Log($"Agility: {BattleParameter.EffectiveAgility}");
+        Debug.Log($"Intelligence: {BattleParameter.EffectiveIntelligence}");
+
+        Debug.Log("計算パラメータ------------------------------------");
         // 他のコンポーネントにパラメータを渡す
         // 例) HP, MP, 移動速度, 攻撃速度, スキルクールダウンなど
         if (_health != null)
@@ -52,15 +61,7 @@ public class CharacterBattleParameter : CharacterAbility
         if (_characterMovement != null)
         {
             _characterMovement.MovementSpeed = _characterMovement.WalkSpeed * BattleParameter.MoveSpeedBonus;
-            Debug.Log($"移動速度: {_characterMovement.MovementSpeed}");
-        }
-
-        // 攻撃速度、スキルクールダウンなども同様に反映
-        _weapon = GetComponentInChildren<Weapon>();
-        if (_weapon != null)
-        {
-            _weapon.TimeBetweenUses = 2f - BattleParameter.AttackSpeed;
-            Debug.Log($"攻撃速度: {_weapon.TimeBetweenUses}");
+            Debug.Log($"移動速度ボーナス: { BattleParameter.MoveSpeedBonus}");
         }
     }
 }

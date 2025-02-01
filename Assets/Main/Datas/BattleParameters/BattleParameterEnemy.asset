@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BattleParameterEnemy
   m_EditorClassIdentifier: 
   Data:
-    _strength: 207
+    _strength: 100
     _dexterity: 1
     _agility: 1
     _intelligence: 1
