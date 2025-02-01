@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -9094453012121100614}
   - component: {fileID: -5212261072117012738}
   m_Layer: 10
-  m_Name: WeaponSword
+  m_Name: WeaponAxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 256
-  ScanRadius: 2
+  ScanRadius: 5
   LineOfFireBoxcastSize: {x: 0.1, y: 0.1}
   DurationBetweenScans: 0.1
   DetectionOriginOffset: {x: 0, y: 0, z: 0}
@@ -133,13 +133,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23338af428107bb4cbac82c9fbb33def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponName: Sword
+  WeaponName: Axe
   WeaponCurrentlyActive: 1
   InputAuthorized: 1
   TriggerMode: 0
   DelayBeforeUse: 0
   DelayBeforeUseReleaseInterruption: 0
-  TimeBetweenUses: 1
+  TimeBetweenUses: 2
   TimeBetweenUsesReleaseInterruption: 0
   UseBurstMode: 0
   BurstLength: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   MirrorCharacterAnimatorParameters: 0
   WeaponAnimationID: 0
   IdleAnimationParameter: 
-  StartAnimationParameter: Sword
+  StartAnimationParameter: Axe
   DelayBeforeUseAnimationParameter: 
   SingleUseAnimationParameter: 
   UseAnimationParameter: 
@@ -198,8 +198,8 @@ MonoBehaviour:
   Flipped: 0
   MeleeDamageAreaMode: 0
   DamageAreaShape: 0
-  AreaOffset: {x: 1, y: 0.1, z: 0}
-  AreaSize: {x: 4, y: 1.5, z: 0}
+  AreaOffset: {x: 1.93, y: 0, z: 0}
+  AreaSize: {x: 1.22, y: 1.37, z: 0}
   TriggerFilter: 192
   HitDamageableFeedback: {fileID: 0}
   HitNonDamageableFeedback: {fileID: 0}
@@ -210,9 +210,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8448
   MinDamageCaused: 10
-  MaxDamageCaused: 30
+  MaxDamageCaused: 20
   Knockback: 1
-  KnockbackForce: {x: 100, y: 0, z: 0}
+  KnockbackForce: {x: 500, y: 0, z: 0}
   KnockbackDirection: 0
   InvincibilityDuration: 0.5
   CanDamageOwner: 0
@@ -293,7 +293,7 @@ SpriteRenderer:
   m_SortingLayerID: 47421343
   m_SortingLayer: 4
   m_SortingOrder: -1
-  m_Sprite: {fileID: -1882572498, guid: 4922dcc7464bf0e47b406f89ff6dda7e, type: 3}
+  m_Sprite: {fileID: 600015915, guid: 4922dcc7464bf0e47b406f89ff6dda7e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
