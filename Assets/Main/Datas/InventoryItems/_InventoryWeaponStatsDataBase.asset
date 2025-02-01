@@ -14,12 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InventoryItems:
   - {fileID: 11400000, guid: f0555c2d1ba14694190dd726c21d7e92, type: 2}
-  - {fileID: 11400000, guid: f8c11482395751e4c86f1fa183e460e4, type: 2}
-  - {fileID: 11400000, guid: 12648b866e69c104aae40fc3da70f80c, type: 2}
-  - {fileID: 11400000, guid: e517d2da9fc46c74190277739f528e95, type: 2}
-  - {fileID: 11400000, guid: 36f110a81c2bfe24d9c950e3c53d19c6, type: 2}
-  - {fileID: 11400000, guid: 00de005f3d7017246a6fd558563ab3b1, type: 2}
-  - {fileID: 11400000, guid: aad2ebfa0f1e2bd418c684b7b18e73f4, type: 2}
-  - {fileID: 11400000, guid: cdf197ffd6eb99441b4e4179c950c904, type: 2}
-  - {fileID: 11400000, guid: bb277bf629be07f40be513f50a541059, type: 2}
-  - {fileID: 11400000, guid: 005a0b34732d9794fbcd59fb379a0fe9, type: 2}
+  - {fileID: 11400000, guid: f3260d307dbc1f14d9dafeae0a735084, type: 2}

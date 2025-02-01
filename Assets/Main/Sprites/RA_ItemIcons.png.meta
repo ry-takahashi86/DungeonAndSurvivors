@@ -8571,7 +8571,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RA_ItemIcons_384
+      name: RA_ItemIcons_Axe_IronAxe
       rect:
         serializedVersion: 2
         x: 0
@@ -22227,7 +22227,6 @@ TextureImporter:
       RA_ItemIcons_381: 1887893507
       RA_ItemIcons_382: 1754356373
       RA_ItemIcons_383: -1674263188
-      RA_ItemIcons_384: 600015915
       RA_ItemIcons_385: 462573705
       RA_ItemIcons_386: -795262013
       RA_ItemIcons_387: -1634843870
@@ -22896,6 +22895,7 @@ TextureImporter:
       RA_ItemIcons_989: 1870131373
       RA_ItemIcons_99: -1269933005
       RA_ItemIcons_Accessory_Warrior'sHeaddress: 1890537319
+      RA_ItemIcons_Axe_IronAxe: 600015915
       RA_ItemIcons_Body_LeatherClothing: 431968012
       RA_ItemIcons_Bow_PracticeBow: 1412797029
       RA_ItemIcons_DaemonSword: -1882572498
