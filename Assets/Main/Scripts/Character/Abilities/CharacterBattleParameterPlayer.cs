@@ -14,20 +14,22 @@ public class CharacterBattleParameterPlayer : CharacterBattleParameter, MMEventL
     {
         base.Start();
 
-        // ==============================
-        // イベント購読の設定
-        // ==============================
-        if (BattleParameter != null)
-        {
-            // パラメータが変わったときに呼ばれるメソッドを登録
-            BattleParameter.OnParameterChanged += ApplyBattleParameter;
-        }
-
         // BattleParameter Display を取得
         ParameterDisplay = FindFirstObjectByType<BattleParameterDisplay>();
         if (ParameterDisplay != null)
         {
-            ParameterDisplay.CharacterBattleParameter = this;
+            ParameterDisplay.BattleParameter = BattleParameter;
+        }
+
+        // パラメータが変わったときに呼ばれるメソッドを登録
+        if (BattleParameter != null)
+        {
+            BattleParameter.OnParameterChanged += ApplyBattleParameter;
+
+            if (ParameterDisplay != null)
+            {
+                BattleParameter.OnParameterChanged += ParameterDisplay.ApplyBattleParameterDisplay;
+            }
         }
 
         // 必須コンポーネントを取得
@@ -110,19 +112,15 @@ public class CharacterBattleParameterPlayer : CharacterBattleParameter, MMEventL
         {
             case MMInventoryEventType.InventoryOpens:
                 print("Inventory Opens");
-                ParameterDisplay.UpdateDisplay();
+                ParameterDisplay.ApplyBattleParameterDisplay();
                 break;
             case MMInventoryEventType.ItemEquipped:
                 print("Inventory ItemEquipped");
                 BattleParameterUpdateEquipments(inventoryEvent.EventItem);
-                ApplyBattleParameter();
-                ParameterDisplay.UpdateDisplay();
                 break;
             case MMInventoryEventType.ItemUnEquipped:
                 print("Inventory ItemUnEquipped");
                 BattleParameterUpdateUnquipments(inventoryEvent.EventItem);
-                ApplyBattleParameter();
-                ParameterDisplay.UpdateDisplay();
                 break;
         }
     }
@@ -147,6 +145,11 @@ public class CharacterBattleParameterPlayer : CharacterBattleParameter, MMEventL
         if (BattleParameter != null)
         {
             BattleParameter.OnParameterChanged -= ApplyBattleParameter;
+
+            if (ParameterDisplay != null)
+            {
+                BattleParameter.OnParameterChanged -= ParameterDisplay.ApplyBattleParameterDisplay;
+            }
         }
     }
 }

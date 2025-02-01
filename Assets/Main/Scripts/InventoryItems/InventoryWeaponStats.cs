@@ -27,13 +27,19 @@ public enum ParameterType
     Strength,
     Dexterity,
     Agility,
+    Intelligence,
+
     MaxHP,
     PhysicalDamageBonus,
     CriticalRate,
     SkillCooldownRate,
     MoveSpeedBonus,
     AttackSpeed,
-    PhysicalDamageReductionRate
+    PhysicalDamageReductionRate,
+
+    MaxMP,
+    MagicDamageBonus,
+    MagicDamageReductionRate
 }
 
 /// <summary>
@@ -52,8 +58,18 @@ public class ItemBonus
     }
 }
 
+public interface IParameterBonus
+{
+    /// <summary>
+    /// 指定したParameterTypeに対する追加ボーナスを返す(なければ0を返す)
+    /// </summary>
+    /// <param name="parameterType"></param>
+    /// <returns></returns>
+    int GetBonus(ParameterType parameterType);
+}
+
 [CreateAssetMenu(fileName = "InventoryWeaponStats", menuName = "DungeonAndSurvivors/InventoryWeaponStats")]
-public class InventoryWeaponStats : InventoryWeapon
+public class InventoryWeaponStats : InventoryWeapon, IParameterBonus
 {
     [Header("装備アイテムデータ")]
     [Header("Weapon Stats")]
@@ -79,9 +95,23 @@ public class InventoryWeaponStats : InventoryWeapon
         { Rarity.Legendary, "#FFA500" },    // オレンジ
     };
 
-    /// <summary>
-    /// 性能をDescriptionに反映する
-    /// </summary>
+    // ここでは、AdditionalBonuses リストから該当する ParameterType のボーナスを合算して返します
+    public int GetBonus(ParameterType parameterType)
+    {
+        int bonus = 0;
+        if (AdditionalBonuses != null)
+        {
+            foreach (var bonusItem in AdditionalBonuses)
+            {
+                if (bonusItem.ParameterType == parameterType)
+                {
+                    bonus += Mathf.RoundToInt(bonusItem.Value);
+                }
+            }
+        }
+        return bonus;
+    }
+
     public void UpdateDescription()
     {
         StringBuilder sb = new StringBuilder();

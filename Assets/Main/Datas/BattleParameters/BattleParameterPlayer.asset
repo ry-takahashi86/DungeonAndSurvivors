@@ -17,11 +17,11 @@ MonoBehaviour:
     _dexterity: 5
     _agility: 5
     _intelligence: 5
-    AttackWeapon: {fileID: 0}
-    HeadWeapon: {fileID: 0}
-    BodyWeapon: {fileID: 0}
-    FootWeapon: {fileID: 0}
-    AccessoryWeapon: {fileID: 0}
+    _attackWeapon: {fileID: 0}
+    _headWeapon: {fileID: 0}
+    _bodyWeapon: {fileID: 0}
+    _footWeapon: {fileID: 0}
+    _accessoryWeapon: {fileID: 0}
     Level: 0
     Exp: 0
     Money: 0
