@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class CharacterBattleParameterPlayer : CharacterBattleParameter, MMEventListener<MMInventoryEvent>
 {
-    [Header("パラメータのUI表示")]
-    public BattleParameterDisplay ParameterDisplay;
-
     // コンポーネント取得
     protected CharacterInventoryAllEquip _equipInventoryAllEquip;
 
@@ -14,24 +11,11 @@ public class CharacterBattleParameterPlayer : CharacterBattleParameter, MMEventL
     {
         base.Start();
 
-        // BattleParameter Display を取得
-        ParameterDisplay = FindFirstObjectByType<BattleParameterDisplay>();
-        if (ParameterDisplay != null)
-        {
-            ParameterDisplay.BattleParameter = BattleParameter;
-        }
-
         // パラメータが変わったときに呼ばれるメソッドを登録
         if (BattleParameter != null)
         {
             BattleParameter.OnParameterChanged += ApplyBattleParameter;
-
-            if (ParameterDisplay != null)
-            {
-                BattleParameter.OnParameterChanged += ParameterDisplay.ApplyBattleParameterDisplay;
-            }
         }
-
         // 必須コンポーネントを取得
         _equipInventoryAllEquip = GetComponent<CharacterInventoryAllEquip>();
     }
@@ -43,7 +27,7 @@ public class CharacterBattleParameterPlayer : CharacterBattleParameter, MMEventL
     public void BattleParameterUpdateEquipments(InventoryItem eventItem)
     {
         // プレイヤーバトルパラメータのときは、装備を設定する
-        if (BattleParameter is BattleParameterBasePlayer battleParameterPlayer)
+        if (BattleParameter is BattleParameterPlayer battleParameterPlayer)
         {
             if (_equipInventoryAllEquip != null)
             {
@@ -76,7 +60,7 @@ public class CharacterBattleParameterPlayer : CharacterBattleParameter, MMEventL
     public void BattleParameterUpdateUnquipments(InventoryItem eventItem)
     {
         // プレイヤーバトルパラメータのときは、装備を解除する
-        if (BattleParameter is BattleParameterBasePlayer battleParameterPlayer)
+        if (BattleParameter is BattleParameterPlayer battleParameterPlayer)
         {
             if (_equipInventoryAllEquip != null)
             {
@@ -110,16 +94,13 @@ public class CharacterBattleParameterPlayer : CharacterBattleParameter, MMEventL
     {
         switch (inventoryEvent.InventoryEventType)
         {
-            case MMInventoryEventType.InventoryOpens:
-                print("Inventory Opens");
-                ParameterDisplay.ApplyBattleParameterDisplay();
-                break;
             case MMInventoryEventType.ItemEquipped:
-                print("Inventory ItemEquipped");
                 BattleParameterUpdateEquipments(inventoryEvent.EventItem);
                 break;
             case MMInventoryEventType.ItemUnEquipped:
-                print("Inventory ItemUnEquipped");
+                BattleParameterUpdateUnquipments(inventoryEvent.EventItem);
+                break;
+            case MMInventoryEventType.Drop:
                 BattleParameterUpdateUnquipments(inventoryEvent.EventItem);
                 break;
         }
@@ -145,11 +126,6 @@ public class CharacterBattleParameterPlayer : CharacterBattleParameter, MMEventL
         if (BattleParameter != null)
         {
             BattleParameter.OnParameterChanged -= ApplyBattleParameter;
-
-            if (ParameterDisplay != null)
-            {
-                BattleParameter.OnParameterChanged -= ParameterDisplay.ApplyBattleParameterDisplay;
-            }
         }
     }
 }

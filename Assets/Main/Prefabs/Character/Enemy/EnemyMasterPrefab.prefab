@@ -921,20 +921,7 @@ MonoBehaviour:
   CharacterType: 1
   InitialBattleParameter: {fileID: 11400000, guid: 5b144f446398e604180fea3cf71960bd,
     type: 2}
-  InitialBattleParameterPlayer: {fileID: 0}
-  BattleParameter:
-    _strength: 0
-    _dexterity: 0
-    _agility: 0
-    _intelligence: 0
-    AttackWeapon: {fileID: 0}
-    HeadWeapon: {fileID: 0}
-    BodyWeapon: {fileID: 0}
-    FootWeapon: {fileID: 0}
-    AccessoryWeapon: {fileID: 0}
-    Level: 0
-    Exp: 0
-    Money: 0
+  BattleParameter: {fileID: 0}
 --- !u!1 &3879520155133928519
 GameObject:
   m_ObjectHideFlags: 0

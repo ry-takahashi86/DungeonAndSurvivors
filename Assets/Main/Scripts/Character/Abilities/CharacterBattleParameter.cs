@@ -10,8 +10,7 @@ public class CharacterBattleParameter : CharacterAbility
 
     [Header("バトルパラメータ")]
     public BattleParameter InitialBattleParameter;
-    public BattleParameterPlayer InitialBattleParameterPlayer;
-    public BattleParameterBasePlayer BattleParameter;
+    public BattleParameter BattleParameter;
 
     protected Weapon _weapon;
 
@@ -19,14 +18,18 @@ public class CharacterBattleParameter : CharacterAbility
     {
         base.Start();
 
-        // 初期パラメータ を反映
         if (InitialBattleParameter != null)
         {
-            InitialBattleParameter.Data.CopyTo(BattleParameter);
-        }
-        else if (InitialBattleParameterPlayer != null)
-        {
-            InitialBattleParameterPlayer.Data.CopyTo(BattleParameter);
+            // AIの場合は直接渡す
+            if (CharacterType == CharacterTypes.AI)
+            {
+                BattleParameter = InitialBattleParameter;
+            }
+            // Playerの場合は、複製して初期パラメータが上書きされないようにする
+            else if (CharacterType == CharacterTypes.Player)
+            {
+                BattleParameter = Instantiate(InitialBattleParameter);
+            }
         }
 
         // パラメータを適用
@@ -37,31 +40,49 @@ public class CharacterBattleParameter : CharacterAbility
         _health.ResetHealthToMaxHealth();
     }
 
+    /// <summary>
+    /// 最大HP,移動速度,攻撃速度を各パラメータに反映する
+    /// </summary>
     public void ApplyBattleParameter()
     {
         if (BattleParameter == null) { return; }
 
-        Debug.Log("バトルパラメータが更新されました-------------------");
+        // Debug.Log("バトルパラメータが更新されました------------------------------------");
+        // Debug.Log($"Strength: {BattleParameter.EffectiveStrength}");
+        // Debug.Log($"Dexterity: {BattleParameter.EffectiveDexterity}");
+        // Debug.Log($"Agility: {BattleParameter.EffectiveAgility}");
+        // Debug.Log($"Intelligence: {BattleParameter.EffectiveIntelligence}");
 
-        Debug.Log("基礎パラメータ------------------------------------");
-        Debug.Log($"Strength: {BattleParameter.EffectiveStrength}");
-        Debug.Log($"Dexterity: {BattleParameter.EffectiveDexterity}");
-        Debug.Log($"Agility: {BattleParameter.EffectiveAgility}");
-        Debug.Log($"Intelligence: {BattleParameter.EffectiveIntelligence}");
-
-        Debug.Log("計算パラメータ------------------------------------");
-        // 他のコンポーネントにパラメータを渡す
-        // 例) HP, MP, 移動速度, 攻撃速度, スキルクールダウンなど
+        // 最大HPを反映
         if (_health != null)
         {
             _health.MaximumHealth = BattleParameter.MaxHP;
-            Debug.Log($"最大HP: {_health.MaximumHealth}");
         }
 
+        // 移動速度を反映
         if (_characterMovement != null)
         {
-            _characterMovement.MovementSpeed = _characterMovement.WalkSpeed * BattleParameter.MoveSpeedBonus;
-            Debug.Log($"移動速度ボーナス: { BattleParameter.MoveSpeedBonus}");
+            _characterMovement.WalkSpeed = BattleParameter.MoveSpeed;
+            _characterMovement.MovementSpeed = _characterMovement.WalkSpeed;
+        }
+
+        // 攻撃速度を反映
+        if (_handleWeaponList != null)
+        {
+            for (int i=0; i<_handleWeaponList.Count; i++)
+            {
+                Weapon weapon = _handleWeaponList[i].CurrentWeapon;
+                if (weapon is MeleeWeaponStats meleeWeapon)
+                {
+                    meleeWeapon.DelayBeforeUse = Mathf.Max(meleeWeapon.InitialAttackDelay * (1f - BattleParameter.AttackSpeed / 100), 0);
+                    meleeWeapon.TimeBetweenUses = Mathf.Max(meleeWeapon.InitialAttackSpeed * (1f - BattleParameter.AttackSpeed / 100), 0);
+                }
+                else if (weapon is ProjectileWeaponStats projectileWeapon)
+                {
+                    projectileWeapon.DelayBeforeUse = Mathf.Max(projectileWeapon.InitialAttackDelay * (1f - BattleParameter.AttackSpeed / 100), 0);
+                    projectileWeapon.TimeBetweenUses = Mathf.Max(projectileWeapon.InitialAttackSpeed * (1f - BattleParameter.AttackSpeed / 100), 0);
+                }
+            }
         }
     }
 }

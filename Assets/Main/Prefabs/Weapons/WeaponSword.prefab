@@ -86,7 +86,7 @@ MonoBehaviour:
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 256
-  ScanRadius: 2
+  ScanRadius: 5
   LineOfFireBoxcastSize: {x: 0.1, y: 0.1}
   DurationBetweenScans: 0.1
   DetectionOriginOffset: {x: 0, y: 0, z: 0}
@@ -137,7 +137,7 @@ MonoBehaviour:
   WeaponCurrentlyActive: 1
   InputAuthorized: 1
   TriggerMode: 0
-  DelayBeforeUse: 0
+  DelayBeforeUse: 0.2
   DelayBeforeUseReleaseInterruption: 0
   TimeBetweenUses: 1
   TimeBetweenUsesReleaseInterruption: 0
@@ -170,12 +170,12 @@ MonoBehaviour:
   Animators:
   - {fileID: 95971963482004484}
   PerformAnimatorSanityChecks: 0
-  MirrorCharacterAnimatorParameters: 0
+  MirrorCharacterAnimatorParameters: 1
   WeaponAnimationID: 0
   IdleAnimationParameter: 
-  StartAnimationParameter: Sword
+  StartAnimationParameter: 
   DelayBeforeUseAnimationParameter: 
-  SingleUseAnimationParameter: 
+  SingleUseAnimationParameter: Sword
   UseAnimationParameter: 
   DelayBetweenUsesAnimationParameter: 
   StopAnimationParameter: 
@@ -209,13 +209,15 @@ MonoBehaviour:
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 8448
-  MinDamageCaused: 10
-  MaxDamageCaused: 30
+  MinDamageCaused: 6
+  MaxDamageCaused: 10
   Knockback: 1
   KnockbackForce: {x: 100, y: 0, z: 0}
   KnockbackDirection: 0
   InvincibilityDuration: 0.5
   CanDamageOwner: 0
+  InitialAttackDelay: 0
+  InitialAttackSpeed: 0
 --- !u!1 &1881930734851166
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +295,7 @@ SpriteRenderer:
   m_SortingLayerID: 47421343
   m_SortingLayer: 4
   m_SortingOrder: -1
-  m_Sprite: {fileID: -1882572498, guid: 4922dcc7464bf0e47b406f89ff6dda7e, type: 3}
+  m_Sprite: {fileID: -1399734820, guid: 4922dcc7464bf0e47b406f89ff6dda7e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

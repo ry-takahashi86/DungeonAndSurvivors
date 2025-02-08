@@ -32,16 +32,16 @@ public class BattleParameterEditor : Editor
     {
         if (battleParameter != null)
         {
-            EditorGUILayout.LabelField("MaxHP", battleParameter.Data.MaxHP.ToString());
-            EditorGUILayout.LabelField("Physical Damage Bonus", battleParameter.Data.PhysicalDamageBonus.ToString());
-            EditorGUILayout.LabelField("Critical Rate", battleParameter.Data.CriticalRate.ToString());
-            EditorGUILayout.LabelField("Skill Cooldown Rate", battleParameter.Data.SkillCooldownRate.ToString());
-            EditorGUILayout.LabelField("Move Speed Bonus", battleParameter.Data.MoveSpeedBonus.ToString());
-            EditorGUILayout.LabelField("Attack Speed", battleParameter.Data.AttackSpeed.ToString());
-            EditorGUILayout.LabelField("Physical Damage Reduction Rate", battleParameter.Data.PhysicalDamageReductionRate.ToString());
-            EditorGUILayout.LabelField("MaxMP", battleParameter.Data.MaxMP.ToString());
-            EditorGUILayout.LabelField("Magic Damage Bonus", battleParameter.Data.MagicDamageBonus.ToString());
-            EditorGUILayout.LabelField("Magic Damage Reduction Rate", battleParameter.Data.MagicDamageReductionRate.ToString());
+            EditorGUILayout.LabelField("MaxHP", battleParameter.MaxHP.ToString());
+            EditorGUILayout.LabelField("Physical Damage Bonus", battleParameter.PhysicalDamageBonus.ToString());
+            EditorGUILayout.LabelField("Critical Rate", battleParameter.CriticalRate.ToString());
+            EditorGUILayout.LabelField("Skill Cooldown Rate", battleParameter.SkillCooldownRate.ToString());
+            EditorGUILayout.LabelField("Move Speed", battleParameter.MoveSpeed.ToString());
+            EditorGUILayout.LabelField("Attack Speed", battleParameter.AttackSpeed.ToString());
+            EditorGUILayout.LabelField("Physical Damage Reduction Rate", battleParameter.PhysicalDamageReductionRate.ToString());
+            EditorGUILayout.LabelField("MaxMP", battleParameter.MaxMP.ToString());
+            EditorGUILayout.LabelField("Magic Damage Bonus", battleParameter.MagicDamageBonus.ToString());
+            EditorGUILayout.LabelField("Magic Damage Reduction Rate", battleParameter.MagicDamageReductionRate.ToString());
         }
     }
 
@@ -53,16 +53,16 @@ public class BattleParameterEditor : Editor
     {
         if (battleParameter != null)
         {
-            EditorGUILayout.LabelField("MaxHP", battleParameter.Data.MaxHP.ToString());
-            EditorGUILayout.LabelField("Physical Damage Bonus", battleParameter.Data.PhysicalDamageBonus.ToString());
-            EditorGUILayout.LabelField("Critical Rate", battleParameter.Data.CriticalRate.ToString());
-            EditorGUILayout.LabelField("Skill Cooldown Rate", battleParameter.Data.SkillCooldownRate.ToString());
-            EditorGUILayout.LabelField("Move Speed Bonus", battleParameter.Data.MoveSpeedBonus.ToString());
-            EditorGUILayout.LabelField("Attack Speed", battleParameter.Data.AttackSpeed.ToString());
-            EditorGUILayout.LabelField("Physical Damage Reduction Rate", battleParameter.Data.PhysicalDamageReductionRate.ToString());
-            EditorGUILayout.LabelField("MaxMP", battleParameter.Data.MaxMP.ToString());
-            EditorGUILayout.LabelField("Magic Damage Bonus", battleParameter.Data.MagicDamageBonus.ToString());
-            EditorGUILayout.LabelField("Magic Damage Reduction Rate", battleParameter.Data.MagicDamageReductionRate.ToString());
+            EditorGUILayout.LabelField("MaxHP", battleParameter.MaxHP.ToString());
+            EditorGUILayout.LabelField("Physical Damage Bonus", battleParameter.PhysicalDamageBonus.ToString());
+            EditorGUILayout.LabelField("Critical Rate", battleParameter.CriticalRate.ToString());
+            EditorGUILayout.LabelField("Skill Cooldown Rate", battleParameter.SkillCooldownRate.ToString());
+            EditorGUILayout.LabelField("Move Speed", battleParameter.MoveSpeed.ToString());
+            EditorGUILayout.LabelField("Attack Speed", battleParameter.AttackSpeed.ToString());
+            EditorGUILayout.LabelField("Physical Damage Reduction Rate", battleParameter.PhysicalDamageReductionRate.ToString());
+            EditorGUILayout.LabelField("MaxMP", battleParameter.MaxMP.ToString());
+            EditorGUILayout.LabelField("Magic Damage Bonus", battleParameter.MagicDamageBonus.ToString());
+            EditorGUILayout.LabelField("Magic Damage Reduction Rate", battleParameter.MagicDamageReductionRate.ToString());
         }
     }
 }

@@ -10,6 +10,22 @@ public class ProjectileWeaponStats : ProjectileWeapon
     [Tooltip("最大ダメージ")]
     public float MaxDamageCaused = 10f;
 
+    [MMInspectorGroup("Use", true, 10)]
+    [Header("")]
+    [MMReadOnly]
+    public float InitialAttackDelay = 0f;   // 攻撃開始までの遅延時間
+    [MMReadOnly]
+    public float InitialAttackSpeed = 0f;   // 攻撃間隔の時間
+
+    public override void Initialization()
+    {
+        base.Initialization();
+
+        // 初期攻撃速度を保存する
+        InitialAttackDelay = DelayBeforeUse;
+        InitialAttackSpeed = TimeBetweenUses;
+    }
+
     public override GameObject SpawnProjectile(Vector3 spawnPosition, int projectileIndex, int totalProjectiles, bool triggerObjectActivation = true)
     {
         /// 発射するオブジェクトを取得する

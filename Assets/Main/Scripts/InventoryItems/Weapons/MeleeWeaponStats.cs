@@ -5,6 +5,25 @@ using UnityEngine;
 
 public class MeleeWeaponStats : MeleeWeapon
 {
+    [MMInspectorGroup("Use", true, 10)]
+    [Header("")]
+    [MMReadOnly]
+    public float InitialAttackDelay = 0f;   // 攻撃開始までの遅延時間
+    [MMReadOnly]
+    public float InitialAttackSpeed = 0f;   // 攻撃間隔の時間
+
+    public override void Initialization()
+    {
+        base.Initialization();
+
+        // 初期攻撃速度を保存する
+        InitialAttackDelay = DelayBeforeUse;
+        InitialAttackSpeed = TimeBetweenUses;
+    }
+
+    /// <summary>
+    /// ダメージエリア(当たり判定)オブジェクトを作成する
+    /// </summary>
     protected override void CreateDamageArea()
     {
         // 作成済みののダメージエリアを使用する場合
@@ -100,7 +119,7 @@ public class MeleeWeaponStats : MeleeWeapon
 
 
     /// <summary>
-    /// Triggers an attack, turning the damage area on and then off
+    /// 攻撃のトリガー処理、ダメージエリアのオンとオフを切り替える。
     /// </summary>
     /// <returns>The weapon attack.</returns>
     protected override IEnumerator MeleeWeaponAttack()

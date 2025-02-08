@@ -9,10 +9,10 @@ using MoreMountains.InventoryEngine;
 public struct BonusCandidate
 {
     public ParameterType parameterType;
-    public int minValue;
-    public int maxValue;
+    public float minValue;
+    public float maxValue;
 
-    public BonusCandidate(ParameterType type, int min, int max)
+    public BonusCandidate(ParameterType type, float min, float max)
     {
         parameterType = type;
         minValue = min;
@@ -22,11 +22,33 @@ public struct BonusCandidate
 
 public class ItemPickerDrop : ItemPicker
 {
-    [Header("Item Database")]
+    [Header("アイテムデータベース")]
     public InventoryWeaponStatsDataBase InventoryWeaponStatsDataBase;
 
-    [Header("Item Data")]
+    [Header("初期アイテムデータ")]
     public InventoryWeaponStats InitialItemData;
+
+    [Header("追加ボーナスのリスト")]
+    public List<BonusCandidate> bonusCandidates = new List<BonusCandidate>
+    {
+        // 加算上昇
+        new BonusCandidate(ParameterType.Strength, 1, 5),
+        new BonusCandidate(ParameterType.Dexterity, 1, 5),
+        new BonusCandidate(ParameterType.Agility, 1, 5),
+        new BonusCandidate(ParameterType.Intelligence, 1, 5),
+
+        // 割合上昇
+        new BonusCandidate(ParameterType.MaxHP, 5f, 10f),
+        new BonusCandidate(ParameterType.PhysicalDamageBonus, 1f, 5f),
+        new BonusCandidate(ParameterType.CriticalRate, 1f, 5f),
+        new BonusCandidate(ParameterType.SkillCooldownRate, 1f, 5f),
+        new BonusCandidate(ParameterType.MoveSpeedBonus, 1f, 5f),
+        new BonusCandidate(ParameterType.AttackSpeed, 1f, 5f),
+        new BonusCandidate(ParameterType.PhysicalDamageReductionRate, 1f, 5f),
+        new BonusCandidate(ParameterType.MaxMP, 5f, 10f),
+        new BonusCandidate(ParameterType.MagicDamageBonus, 1f, 5f),
+        new BonusCandidate(ParameterType.MagicDamageReductionRate, 1f, 5f),
+    };
 
     /// <summary>
     /// レアリティ出現確率表
@@ -58,7 +80,6 @@ public class ItemPickerDrop : ItemPicker
         { Rarity.Epic,      6 },    // 6アップ
         { Rarity.Legendary, 10 },   // 10アップ
     };
-
     private Dictionary<Rarity, int> _rarityArmorMultiplier = new Dictionary<Rarity, int>()
     {
         { Rarity.Common,    0 },    // 補正なし
@@ -66,31 +87,6 @@ public class ItemPickerDrop : ItemPicker
         { Rarity.Rare,      4 },    // 4アップ
         { Rarity.Epic,      6 },    // 6アップ
         { Rarity.Legendary, 10 },   // 10アップ
-    };
-
-    /// <summary>
-    /// 追加ボーナス候補一覧
-    /// パラメータ種別と最小・最大値を設定しておき、抽選時に参照
-    /// </summary>
-    [Header("Bonus Candidates")]
-    public List<BonusCandidate> bonusCandidates = new List<BonusCandidate>
-    {
-        new BonusCandidate(ParameterType.Strength, 1, 5),
-        new BonusCandidate(ParameterType.Dexterity, 1, 5),
-        new BonusCandidate(ParameterType.Agility, 1, 5),
-        new BonusCandidate(ParameterType.Intelligence, 1, 5),
-
-        new BonusCandidate(ParameterType.MaxHP, 5, 30),
-        new BonusCandidate(ParameterType.PhysicalDamageBonus, 1, 10),
-        new BonusCandidate(ParameterType.CriticalRate, 1, 5),
-        new BonusCandidate(ParameterType.SkillCooldownRate, 1, 3),
-        new BonusCandidate(ParameterType.MoveSpeedBonus, 1, 3),
-        new BonusCandidate(ParameterType.AttackSpeed, 1, 5),
-        new BonusCandidate(ParameterType.PhysicalDamageReductionRate, 1, 10),
-
-        new BonusCandidate(ParameterType.MaxMP, 1, 3),
-        new BonusCandidate(ParameterType.MagicDamageBonus, 1, 5),
-        new BonusCandidate(ParameterType.MagicDamageReductionRate, 1, 10),
     };
 
     protected override void Initialization()
@@ -152,6 +148,7 @@ public class ItemPickerDrop : ItemPicker
                 if (loopCount > 1000)
                 {
                     // 安全策: ある程度回しても抽選できなければ打ち切り
+                    Debug.LogWarning($"{this.name}: ボーナスの抽選に失敗しました");
                     break;
                 }
                 loopCount++;
@@ -218,8 +215,19 @@ public class ItemPickerDrop : ItemPicker
         // 候補の中からランダムに1つ選ぶ
         int index = Random.Range(0, bonusCandidates.Count);
         BonusCandidate candidate = bonusCandidates[index];
-
         float randomValue = Random.Range(candidate.minValue, candidate.maxValue);
+
+        // 基礎パラメータは整数に丸める
+        switch (candidate.parameterType)
+        {
+            case ParameterType.Strength:
+            case ParameterType.Dexterity:
+            case ParameterType.Agility:
+            case ParameterType.Intelligence:
+                randomValue = Mathf.RoundToInt(randomValue);
+            break;
+        }
+
         return new ItemBonus(candidate.parameterType, randomValue);
     }
 }
