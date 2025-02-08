@@ -28,7 +28,6 @@ public enum ParameterType
     Dexterity,
     Agility,
     Intelligence,
-
     MaxHP,
     PhysicalDamageBonus,
     CriticalRate,
@@ -36,7 +35,6 @@ public enum ParameterType
     MoveSpeedBonus,
     AttackSpeed,
     PhysicalDamageReductionRate,
-
     MaxMP,
     MagicDamageBonus,
     MagicDamageReductionRate
@@ -69,6 +67,7 @@ public interface IParameterBonus
 }
 
 [CreateAssetMenu(fileName = "InventoryWeaponStats", menuName = "DungeonAndSurvivors/InventoryWeaponStats")]
+[Serializable]
 public class InventoryWeaponStats : InventoryWeapon, IParameterBonus
 {
     [Header("装備アイテムデータ")]
@@ -141,8 +140,24 @@ public class InventoryWeaponStats : InventoryWeapon, IParameterBonus
             foreach (ItemBonus bonus in AdditionalBonuses)
             {
                 string paramStr = ParameterTypeToString(bonus.ParameterType);
+
+                string valueStr = "";
+                switch (bonus.ParameterType)
+                {
+                    case ParameterType.Strength:
+                    case ParameterType.Dexterity:
+                    case ParameterType.Agility:
+                    case ParameterType.Intelligence:
+                        valueStr = bonus.Value.ToString();
+                    break;
+
+                    default:
+                        valueStr = bonus.Value.ToString("N2") + "%";
+                    break;
+                }
+
                 colorCode = "#00bfff";
-                coloredLine = $"<color={colorCode}>{paramStr} +{bonus.Value}</color>";
+                coloredLine = $"<color={colorCode}>{paramStr} +{valueStr}</color>";
                 sb.AppendLine($"- {coloredLine}");
             }
         }
@@ -161,6 +176,8 @@ public class InventoryWeaponStats : InventoryWeapon, IParameterBonus
                 return "器用さ";
             case ParameterType.Agility:
                 return "敏捷性";
+            case ParameterType.Intelligence:
+                return "知性";
             case ParameterType.MaxHP:
                 return "最大HP";
             case ParameterType.PhysicalDamageBonus:
@@ -175,7 +192,14 @@ public class InventoryWeaponStats : InventoryWeapon, IParameterBonus
                 return "攻撃速度";
             case ParameterType.PhysicalDamageReductionRate:
                 return "物理ダメージ軽減率";
+            case ParameterType.MaxMP:
+                return "最大MP";
+            case ParameterType.MagicDamageBonus:
+                return "魔法ダメージボーナス";
+            case ParameterType.MagicDamageReductionRate:
+                return "魔法ダメージ軽減率";
             default:
+                Debug.LogWarning($"{this.name}: パラメータタイプの文字列変換に失敗しました");
                 return "";
         }
     }
@@ -279,5 +303,23 @@ public class InventoryWeaponStats : InventoryWeapon, IParameterBonus
 
         // 生成に失敗した場合は null を返す
         return null;
+    }
+
+    /// <summary>
+    /// アイテムを新しいアイテムにコピーする
+    /// </summary>
+    public override InventoryItem Copy()
+    {
+        Debug.Log($"アイテムデータをコピーします: {this.name}");
+        string name = this.name;
+        InventoryWeaponStats clone = Instantiate(this) as InventoryWeaponStats;
+        clone.name = name;
+        clone.WeaponMinDamage = WeaponMinDamage;
+        clone.WeaponMaxDamage = WeaponMaxDamage;
+        clone.ArmorRating = ArmorRating;
+        clone.ItemRarity = ItemRarity;
+        clone.AdditionalBonuses = AdditionalBonuses;
+        clone.UpdateDescription();
+        return clone;
     }
 }

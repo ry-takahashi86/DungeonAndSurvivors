@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c400836f520b9924ababfb863068ecb7, type: 3}
   m_Name: BattleParameterPlayer
   m_EditorClassIdentifier: 
-  Data:
-    _strength: 5
-    _dexterity: 5
-    _agility: 5
-    _intelligence: 5
-    _attackWeapon: {fileID: 0}
-    _headWeapon: {fileID: 0}
-    _bodyWeapon: {fileID: 0}
-    _footWeapon: {fileID: 0}
-    _accessoryWeapon: {fileID: 0}
-    Level: 0
-    Exp: 0
-    Money: 0
+  _strength: 5
+  _dexterity: 5
+  _agility: 5
+  _intelligence: 5
+  _attackWeapon: {fileID: 0}
+  _headWeapon: {fileID: 0}
+  _bodyWeapon: {fileID: 0}
+  _footWeapon: {fileID: 0}
+  _accessoryWeapon: {fileID: 0}
+  Level: 0
+  Exp: 0
+  Money: 0

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36bd76ccdd2e7514f897b7c43b30d94b, type: 3}
+  m_Name: _InventoryWeaponStatsDataBase
+  m_EditorClassIdentifier: 
+  InventoryItems:
+  - {fileID: 11400000, guid: 6ca51d9f2d0f4e144b3f4a1a010cf8d9, type: 2}
+  - {fileID: 11400000, guid: 4e6fb741d0759cd488865f66f1504e66, type: 2}
+  - {fileID: 11400000, guid: e38d91f9cc04ea8498b718246bd56ee8, type: 2}
+  - {fileID: 11400000, guid: ad0fa8d1dc630614eb353741a0e0c3e7, type: 2}
+  - {fileID: 11400000, guid: 5d7021651563b5847861db3966eb4f77, type: 2}
+  - {fileID: 11400000, guid: e7c11d1acc4fc9f4e9749e0adec51698, type: 2}
+  - {fileID: 11400000, guid: 7f4e911208b3d70479034592b23bcf98, type: 2}
+  - {fileID: 11400000, guid: 0d320169fdc813644959e81107ecda6b, type: 2}
+  - {fileID: 11400000, guid: dca54cf70cf63e148845c352fc5be9d2, type: 2}
+  - {fileID: 11400000, guid: 4f2c650fb2b5b124782c1ef0544b7c82, type: 2}
+  - {fileID: 11400000, guid: c434018635e8f0344986c9b6b5d6d635, type: 2}
+  - {fileID: 11400000, guid: df1dee7463a2ee7489f25e845579990a, type: 2}

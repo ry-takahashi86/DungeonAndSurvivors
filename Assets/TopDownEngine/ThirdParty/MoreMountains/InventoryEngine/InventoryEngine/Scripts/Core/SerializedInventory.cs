@@ -6,7 +6,7 @@ namespace MoreMountains.InventoryEngine
 	/// <summary>
 	/// Serialized class to help store / load inventories from files.
 	/// </summary>
-	public class SerializedInventory 
+	public class SerializedInventory
 	{
 		public int NumberOfRows;
 		public int NumberOfColumns;
@@ -14,6 +14,6 @@ namespace MoreMountains.InventoryEngine
 		public MoreMountains.InventoryEngine.Inventory.InventoryTypes InventoryType ;
 		public bool DrawContentInInspector=false;
 		public string[] ContentType;
-		public int[] ContentQuantity;		
+		public int[] ContentQuantity;
 	}
 }

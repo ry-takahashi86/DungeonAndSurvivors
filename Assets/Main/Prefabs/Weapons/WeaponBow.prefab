@@ -211,8 +211,8 @@ MonoBehaviour:
   TimeBetweenUses: 1
   TimeBetweenUsesReleaseInterruption: 0
   UseBurstMode: 0
-  BurstLength: 3
-  BurstTimeBetweenShots: 0.1
+  BurstLength: 0
+  BurstTimeBetweenShots: 0
   MagazineBased: 0
   MagazineSize: 30
   AutoReload: 0
@@ -244,10 +244,10 @@ MonoBehaviour:
   IdleAnimationParameter: 
   StartAnimationParameter: 
   DelayBeforeUseAnimationParameter: 
-  SingleUseAnimationParameter: 
+  SingleUseAnimationParameter: Bow
   UseAnimationParameter: 
-  DelayBetweenUsesAnimationParameter: UseWeapon
-  StopAnimationParameter: StopWeapon
+  DelayBetweenUsesAnimationParameter: 
+  StopAnimationParameter: 
   ReloadStartAnimationParameter: 
   ReloadAnimationParameter: 
   ReloadStopAnimationParameter: 
@@ -267,18 +267,20 @@ MonoBehaviour:
   Flipped: 0
   ProjectileSpawnOffset: {x: 0, y: 0, z: 0}
   DefaultProjectileDirection: {x: 0, y: 0, z: 1}
-  ProjectilesPerShot: 1
+  ProjectilesPerShot: 3
   SpawnTransforms: []
   SpawnTransformsMode: 1
   Spread: {x: 0, y: 0, z: 0}
   RotateWeaponOnSpread: 0
   RandomSpread: 1
-  SpawnPosition: {x: 0, y: 0, z: 0}
+  SpawnPosition: {x: 0.63, y: 0, z: 0}
   ObjectPooler: {fileID: 0}
   SpawnFeedbacks: []
   TestShootButton: 0
-  MinDamageCaused: 5
-  MaxDamageCaused: 10
+  MinDamageCaused: 4
+  MaxDamageCaused: 6
+  InitialAttackDelay: 0
+  InitialAttackSpeed: 0
 --- !u!1 &7452741543965268277
 GameObject:
   m_ObjectHideFlags: 0

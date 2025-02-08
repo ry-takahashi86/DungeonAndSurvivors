@@ -85,7 +85,7 @@ MonoBehaviour:
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 256
-  ScanRadius: 2
+  ScanRadius: 5
   LineOfFireBoxcastSize: {x: 0.1, y: 0.1}
   DurationBetweenScans: 0.1
   DetectionOriginOffset: {x: 0, y: 0, z: 0}
@@ -170,20 +170,20 @@ MonoBehaviour:
   PerformAnimatorSanityChecks: 0
   MirrorCharacterAnimatorParameters: 0
   WeaponAnimationID: 0
-  IdleAnimationParameter: 
-  StartAnimationParameter: Attack
-  DelayBeforeUseAnimationParameter: 
-  SingleUseAnimationParameter: 
-  UseAnimationParameter: 
-  DelayBetweenUsesAnimationParameter: 
-  StopAnimationParameter: 
+  IdleAnimationParameter: IdleWeapon
+  StartAnimationParameter: Start
+  DelayBeforeUseAnimationParameter: DelayBeforeUse
+  SingleUseAnimationParameter: SingleUse
+  UseAnimationParameter: Use
+  DelayBetweenUsesAnimationParameter: DelayBetweenUses
+  StopAnimationParameter: Stop
   ReloadStartAnimationParameter: 
   ReloadAnimationParameter: 
   ReloadStopAnimationParameter: 
   WeaponAngleAnimationParameter: 
   WeaponAngleRelativeAnimationParameter: 
-  EquippedAnimationParameter: 
-  InterruptedAnimationParameter: 
+  EquippedAnimationParameter: Equipped
+  InterruptedAnimationParameter: Interrupted
   WeaponStartMMFeedback: {fileID: 0}
   WeaponUsedMMFeedback: {fileID: 0}
   WeaponUsedMMFeedbackAlt: {fileID: 0}
@@ -214,3 +214,5 @@ MonoBehaviour:
   KnockbackDirection: 0
   InvincibilityDuration: 0.5
   CanDamageOwner: 0
+  InitialAttackDelay: 0
+  InitialAttackSpeed: 0

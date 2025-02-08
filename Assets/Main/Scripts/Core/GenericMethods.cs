@@ -8,7 +8,7 @@ public static class GenericMethods
     /// <param name="minDamage"></param>
     /// <param name="maxDamage"></param>
     /// <returns></returns>
-    public static int CalculateDamage(float minDamage, float maxDamage, BattleParameterBase owner, BattleParameterBase target)
+    public static int CalculateDamage(float minDamage, float maxDamage, BattleParameter owner, BattleParameter target)
     {
         // クリティカルダメージ倍率
         const float CRITICAL_DAMAGE_MULTIPLIER = 1.5f;

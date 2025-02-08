@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09cc02aee6404e4429c9941f0fa93e0f, type: 3}
+  m_Name: Head_LeatherHelmet
+  m_EditorClassIdentifier: 
+  ItemID: Head_LeatherHelmet
+  TargetInventoryName: MainInventory
+  ForceSlotIndex: 0
+  TargetIndex: 0
+  Usable: 0
+  Consumable: 1
+  ConsumeQuantity: 1
+  Equippable: 1
+  EquippableIfInventoryIsFull: 1
+  MoveWhenEquipped: 1
+  Droppable: 1
+  CanMoveObject: 1
+  CanSwapObject: 1
+  DisplayProperties:
+    DisplayEquipUseButton: 1
+    DisplayMoveButton: 1
+    DisplayDropButton: 1
+    DisplayEquipButton: 1
+    DisplayUseButton: 1
+    DisplayUnequipButton: 1
+    AllowEquipUseShortcut: 1
+    AllowMoveShortcut: 1
+    AllowDropShortcut: 1
+    AllowEquipShortcut: 1
+    AllowUseShortcut: 1
+  Quantity: 1
+  ItemName: "\u76AE\u306E\u515C"
+  ShortDescription: 
+  Description: "\u57FA\u790E\u6027\u80FD\n\r\u9632\u5FA1\u529B: 3"
+  Icon: {fileID: 1405546994, guid: 4922dcc7464bf0e47b406f89ff6dda7e, type: 3}
+  Prefab: {fileID: 170916, guid: ecc694c278b07d444ab2e0635ec4711a, type: 3}
+  ForcePrefabDropQuantity: 0
+  PrefabDropQuantity: 1
+  DropProperties:
+    Shape: 0
+    MinimumSphereRadius: 1
+    MaximumSphereRadius: 2
+    MinimumCubeBaseSize: {x: 1, y: 1, z: 1}
+    MaximumCubeBaseSize: {x: 2, y: 2, z: 2}
+    ForcePlane: 1
+    NormalToSpawnPlane: {x: 0, y: 1, z: 0}
+    MinimumNormalAxisOffset: 0
+    MaximumNormalAxisOffset: 0
+    UseNormalAxisOffsetCurve: 0
+    NormalOffsetCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    NormalOffsetCurveRemapZero: 0
+    NormalOffsetCurveRemapOne: 1
+    InvertNormalOffsetCurve: 0
+    MinimumRotation: {x: 0, y: 0, z: 0}
+    MaximumRotation: {x: 0, y: 0, z: 0}
+    MinimumScale: {x: 1, y: 1, z: 1}
+    MaximumScale: {x: 1, y: 1, z: 1}
+  MaximumStack: 1
+  MaximumQuantity: 999999999
+  ItemClass: 1
+  TargetEquipmentInventoryName: HeadInventory
+  EquippedSound: {fileID: 0}
+  UsedSound: {fileID: 0}
+  MovedSound: {fileID: 0}
+  DroppedSound: {fileID: 0}
+  UseDefaultSoundsIfNull: 1
+  EquippableWeapon: {fileID: 0}
+  AutoEquipMode: 0
+  HandleWeaponID: 1
+  WeaponMinDamage: 0
+  WeaponMaxDamage: 0
+  ArmorRating: 3
+  ItemRarity: 0
+  AdditionalBonuses: []

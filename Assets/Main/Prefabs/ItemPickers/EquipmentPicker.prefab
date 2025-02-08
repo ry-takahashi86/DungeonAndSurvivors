@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 401158}
   - component: {fileID: 21226608}
   - component: {fileID: 6137486}
-  - component: {fileID: 1961884935696807211}
+  - component: {fileID: 3073846271494667017}
   m_Layer: 0
   m_Name: EquipmentPicker
   m_TagString: Untagged
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
---- !u!114 &1961884935696807211
+--- !u!114 &3073846271494667017
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,7 +155,7 @@ MonoBehaviour:
   RequirePlayerTag: 1
   InventoryWeaponStatsDataBase: {fileID: 11400000, guid: 34ddb32b325c1724296da2cc2e7addad,
     type: 2}
-  InventoryWeaponStatsData: {fileID: 0}
+  InitialItemData: {fileID: 0}
   bonusCandidates:
   - parameterType: 0
     minValue: 1
@@ -165,25 +165,37 @@ MonoBehaviour:
     maxValue: 5
   - parameterType: 2
     minValue: 1
-    maxValue: 3
+    maxValue: 5
   - parameterType: 3
-    minValue: 5
-    maxValue: 30
-  - parameterType: 4
     minValue: 1
     maxValue: 5
+  - parameterType: 4
+    minValue: 10
+    maxValue: 20
   - parameterType: 5
     minValue: 1
-    maxValue: 10
+    maxValue: 5
   - parameterType: 6
     minValue: 1
-    maxValue: 3
+    maxValue: 5
   - parameterType: 7
     minValue: 1
-    maxValue: 3
+    maxValue: 5
   - parameterType: 8
     minValue: 1
     maxValue: 5
   - parameterType: 9
     minValue: 1
-    maxValue: 10
+    maxValue: 5
+  - parameterType: 10
+    minValue: 1
+    maxValue: 5
+  - parameterType: 11
+    minValue: 10
+    maxValue: 50
+  - parameterType: 12
+    minValue: 1
+    maxValue: 5
+  - parameterType: 13
+    minValue: 1
+    maxValue: 5

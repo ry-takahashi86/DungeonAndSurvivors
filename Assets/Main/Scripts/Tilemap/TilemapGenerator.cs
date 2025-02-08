@@ -9,15 +9,24 @@ using System.Collections;
 [ExecuteAlways]
 public class TilemapGenerator : MMTilemapGenerator
 {
-    [System.Serializable]
+    public enum SpawnCategory
+    {
+        Default,    // 制限なし
+        Enemy       // スタートやゴール周辺には生成しない
+    }
+
+    [Serializable]
     public class SpawnData
     {
         public GameObject Prefab;
         public int Quantity = 1;
+        public SpawnCategory SpawnCategory = SpawnCategory.Default;
     }
 
     [Header("Settings")]
     public bool GenerateOnAwake = false;        // Awake時に実行するか(Treu:実行, False:実行しない)
+
+    public float EnemySafeDistance = 3f;        // 敵生成時、スタートやゴールからの安全距離
 
     [Header("Bindings")]
     public Grid TargetGrid;
@@ -35,7 +44,7 @@ public class TilemapGenerator : MMTilemapGenerator
     public Tilemap targetTilemap;               // クリーン対象のタイルマップ
     public Sprite targetSprite;                 // クリーン対象のスプライト]
 
-    protected int _maxIterationsCount = 10;     // 最大繰り返し回数
+    protected int _maxIterationsCount = 1000;   // 最大繰り返し回数
     protected List<Vector3> _filledPositions;   // 塗りつぶし済みの座標リスト
 
     // 隣接タイルのオフセット
@@ -105,12 +114,6 @@ public class TilemapGenerator : MMTilemapGenerator
             if (layer.Name == "RandomWalk")
             {
                 layer.RandomWalkStartingPoint.x = startX;
-            }
-
-            if (layer.Name == "SubCorridor")
-            {
-                layer.PathStartPosition.x = startX;
-                layer.PathDirectionChangeDistance = changeDistance;
             }
         }
     }
@@ -322,6 +325,14 @@ public class TilemapGenerator : MMTilemapGenerator
         }
 
         UnityEngine.Random.InitState(GlobalSeed);
+
+        // Obstacles Tilemap のセル範囲を取得
+        BoundsInt tileBonuds = ObstaclesTilemap.cellBounds;
+        int cellXMin = tileBonuds.xMin;
+        int cellXMax = tileBonuds.xMax;
+        int cellYMin = tileBonuds.yMin;
+        int cellYMax = tileBonuds.yMax;
+
         int width = UnityEngine.Random.Range(GridWidth.x, GridWidth.y);
         int height = UnityEngine.Random.Range(GridHeight.x, GridHeight.y);
 
@@ -330,15 +341,38 @@ public class TilemapGenerator : MMTilemapGenerator
             for (int i = 0; i < data.Quantity; i++)
             {
                 Vector3 spawnPosition = Vector3.zero;
-
-                bool tooClose = true;
+                bool validPosition = false;
                 int iterationsCount = 0;
 
-                while (tooClose && (iterationsCount < _maxIterationsCount))
+                while (!validPosition && (iterationsCount < _maxIterationsCount))
                 {
-                    spawnPosition = MMTilemap.GetRandomPosition(ObstaclesTilemap, TargetGrid, width, height, false, width * height * 2);
+                    switch (data.SpawnCategory)
+                    {
+                        case SpawnCategory.Enemy:
+                            // まずは全体のランダム位置を取得（ここでは既存の GetRandomPosition を利用）
+                            spawnPosition = MMTilemap.GetRandomPosition(ObstaclesTilemap, TargetGrid, width, height, false, width * height * 2);
+                            break;
 
-                    tooClose = false;
+                        case SpawnCategory.Default:
+                        default:
+                            // 制限なしの場合は、全体のランダム位置
+                            spawnPosition = MMTilemap.GetRandomPosition(ObstaclesTilemap, TargetGrid, width, height, false, width * height * 2);
+                            break;
+                    }
+
+                    // Enemy 用の場合、スタート地点やゴール地点の周辺は避ける
+                    if (data.SpawnCategory == SpawnCategory.Enemy)
+                    {
+                        if ((InitialSpawn != null && Vector3.Distance(spawnPosition, InitialSpawn.position) < EnemySafeDistance) ||
+                            (Exit != null && Vector3.Distance(spawnPosition, Exit.position) < EnemySafeDistance))
+                        {
+                            iterationsCount++;
+                            continue; // 安全距離内なら再試行
+                        }
+                    }
+
+                    // 既存処理: 既に配置済みオブジェクトとの最小距離チェック
+                    bool tooClose = false;
                     foreach (Vector3 filledPosition in _filledPositions)
                     {
                         if (Vector3.Distance(spawnPosition, filledPosition) < PrefabsSpawnMinDistance)
@@ -347,9 +381,16 @@ public class TilemapGenerator : MMTilemapGenerator
                             break;
                         }
                     }
+                    if (tooClose)
+                    {
+                        iterationsCount++;
+                        continue;
+                    }
 
-                    iterationsCount++;
+                    validPosition = true;
                 }
+
+                // 有効な位置が見つかったら生成し、配置済みリストに追加
                 Instantiate(data.Prefab, spawnPosition, Quaternion.identity);
                 _filledPositions.Add(spawnPosition);
             }

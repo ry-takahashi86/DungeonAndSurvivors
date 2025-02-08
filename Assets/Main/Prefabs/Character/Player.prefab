@@ -120,6 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7778894739428273487}
   - component: {fileID: 1893388294239770734}
+  - component: {fileID: 6444880419474278893}
   - component: {fileID: 8523502262017505078}
   - component: {fileID: 8572580736112595546}
   - component: {fileID: 3038646397866082744}
@@ -187,6 +188,27 @@ MonoBehaviour:
   AdditionalAbilityNodes: []
   CharacterBrain: {fileID: 0}
   OptimizeForMobile: 1
+--- !u!114 &6444880419474278893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671598587021787683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b1c0fc1f870c9e4b908bfb73e021bf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
 --- !u!50 &8523502262017505078
 Rigidbody2D:
   serializedVersion: 5
@@ -722,23 +744,9 @@ MonoBehaviour:
   BlockingConditionStates: 
   BlockingWeaponStates: 
   CharacterType: 0
-  InitialBattleParameter: {fileID: 0}
-  InitialBattleParameterPlayer: {fileID: 11400000, guid: 5fb1dcbd504bd7648923d98d1ff9fa16,
+  InitialBattleParameter: {fileID: 11400000, guid: 5fb1dcbd504bd7648923d98d1ff9fa16,
     type: 2}
-  BattleParameter:
-    _strength: 0
-    _dexterity: 0
-    _agility: 0
-    _intelligence: 0
-    AttackWeapon: {fileID: 0}
-    HeadWeapon: {fileID: 0}
-    BodyWeapon: {fileID: 0}
-    FootWeapon: {fileID: 0}
-    AccessoryWeapon: {fileID: 0}
-    Level: 0
-    Exp: 0
-    Money: 0
-  ParameterDisplay: {fileID: 0}
+  BattleParameter: {fileID: 0}
 --- !u!114 &7664565410968316426
 MonoBehaviour:
   m_ObjectHideFlags: 0
