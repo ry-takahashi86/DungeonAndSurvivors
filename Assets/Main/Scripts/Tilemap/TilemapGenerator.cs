@@ -5,14 +5,15 @@ using MoreMountains.TopDownEngine;
 using UnityEngine.Tilemaps;
 using System;
 using System.Collections;
+using System.Text;
 
 [ExecuteAlways]
 public class TilemapGenerator : MMTilemapGenerator
 {
     public enum SpawnCategory
     {
-        Default,    // 制限なし
-        Enemy       // スタートやゴール周辺には生成しない
+        Enemy,
+        Item
     }
 
     [Serializable]
@@ -20,13 +21,11 @@ public class TilemapGenerator : MMTilemapGenerator
     {
         public GameObject Prefab;
         public int Quantity = 1;
-        public SpawnCategory SpawnCategory = SpawnCategory.Default;
+        public SpawnCategory Category;
     }
 
     [Header("Settings")]
     public bool GenerateOnAwake = false;        // Awake時に実行するか(Treu:実行, False:実行しない)
-
-    public float EnemySafeDistance = 3f;        // 敵生成時、スタートやゴールからの安全距離
 
     [Header("Bindings")]
     public Grid TargetGrid;
@@ -35,27 +34,23 @@ public class TilemapGenerator : MMTilemapGenerator
     public LevelManager TargetLevelManager;
 
     [Header("Spawn")]
-    public Transform InitialSpawn;              // プレイヤーのスポーン位置
-    public Transform Exit;                      // レベルの出口
+    public Transform InitialSpawn;              // スタート地点
+    public Transform Exit;                      // ゴール地点
     public List<SpawnData> PrefabsToSpawn;      // 生成するプレハブのリスト
-    public float PrefabsSpawnMinDistance = 2f;  // 生成するプレハブの最小距離
+    protected int _startX = 0;                      // スタート座標
 
     [Header("Tilemap Cleanup")]
-    public Tilemap targetTilemap;               // クリーン対象のタイルマップ
-    public Sprite targetSprite;                 // クリーン対象のスプライト]
+    public Tilemap targetTilemap;                   // クリーン対象のタイルマップ
+    public Sprite targetSprite;                     // クリーン対象のスプライト
+    protected int _maxTileIterationsCount = 10;     // 最大タイルクリーン回数
 
-    protected int _maxIterationsCount = 1000;   // 最大繰り返し回数
-    protected List<Vector3> _filledPositions;   // 塗りつぶし済みの座標リスト
+    // ランダム生成されたマップを定義した二次元配列
+    protected int[,] _mainCorridorGrid;         // MainCorridor
+    protected int[,] _obstacleTilemapGrid;      // ObstacleTilemap
 
-    // 隣接タイルのオフセット
-    private static readonly Vector3Int[] adjacentOffsets = new Vector3Int[]
+    // 隣接タイルのオフセット(5方向)
+    private static readonly Vector3Int[] frontAdjacentOffsets = new Vector3Int[]
     {
-        // 8方向
-        // new Vector3Int(-1, 1, 0), new Vector3Int(0, 1, 0), new Vector3Int(1, 1, 0),
-        // new Vector3Int(-1, 0, 0),                       new Vector3Int(1, 0, 0),
-        // new Vector3Int(-1, -1, 0), new Vector3Int(0, -1, 0), new Vector3Int(1, -1, 0)
-
-        // 5方向
         new Vector3Int(-1, 1, 0), new Vector3Int(0, 1, 0), new Vector3Int(1, 1, 0),
         new Vector3Int(-1, 0, 0),                       new Vector3Int(1, 0, 0),
     };
@@ -76,16 +71,161 @@ public class TilemapGenerator : MMTilemapGenerator
 
         base.Generate();
 
-        _filledPositions = new List<Vector3>();
         TilemapSmooth();
         HandleWallsShadow();
         ResizeLevelManager();
+
+        Debug.Log("MainCorridorの結果");
+        DebugTileArray(_mainCorridorGrid);
+        Debug.Log("MainCorridorの反転結果");
+        DebugTileArray(InvertArray(_mainCorridorGrid));
+        Debug.Log("ObstacleTilemapのタイルチェック結果");
+        DebugTileArray(GetObstacleGrid(ObstaclesTilemap));
+        Debug.Log("MainCorridorの除外結果");
+        DebugTileArray(MergeTileArrays(GetObstacleGrid(ObstaclesTilemap), InvertArray(_mainCorridorGrid)));
+
         PlaceStartAndExit();
         SpawnPrefabs();
-
         StartCoroutine(DelayedScan());
     }
 
+    protected override void GenerateLayer(MMTilemapGeneratorLayer layer)
+    {
+        base.GenerateLayer(layer);
+
+        switch (layer.Name)
+        {
+            case "MainCorridor":
+                Debug.Log("MainCorridor を生成しました");
+
+                // 整形した文字列をコンソールに出力
+                _mainCorridorGrid = GetObstacleGrid(ObstaclesTilemap);
+                break;
+            case "Detour1":
+                Debug.Log("Detour1 を生成しました");
+
+                // 整形した文字列をコンソールに出力
+                GetObstacleGrid(ObstaclesTilemap);
+                break;
+            case "Detour2":
+                Debug.Log("Detour2 を生成しました");
+
+                // 整形した文字列をコンソールに出力
+                GetObstacleGrid(ObstaclesTilemap);
+                break;
+            case "Room":
+                Debug.Log("Room を生成しました");
+
+                // 整形した文字列をコンソールに出力
+                GetObstacleGrid(ObstaclesTilemap);
+                break;
+        }
+    }
+
+    // 指定したタイルマップのタイル有無を判定して、二次元配列を作成する
+    private int[,] GetObstacleGrid(Tilemap tilemap)
+    {
+        int[,] tileArray;
+
+        // Tilemapの全体範囲を取得
+        BoundsInt bounds = tilemap.cellBounds;
+
+        // 二次元配列のサイズを決定
+        // bounds.size.x, bounds.size.y はそれぞれ幅と高さ
+        tileArray = new int[bounds.size.x, bounds.size.y];
+
+        for (int x = bounds.xMin; x < bounds.xMax; x++)
+        {
+            for (int y = bounds.yMin; y < bounds.yMax; y++)
+            {
+                // 現在のセル位置をVector3Intで指定
+                Vector3Int pos = new Vector3Int(x, y, 0);
+
+                // タイルの有無をチェック
+                if (tilemap.HasTile(pos))
+                {
+                    // タイルが存在する場合、配列には 1 を格納
+                    // 配列のインデックスは0から始まるので、bounds.xMinとbounds.yMin分をオフセットとして引く
+                    tileArray[x - bounds.xMin, y - bounds.yMin] = 1;
+                }
+                else
+                {
+                    // タイルが存在しない場合は 0（初期値でもあるので明示的に代入してもよい）
+                    tileArray[x - bounds.xMin, y - bounds.yMin] = 0;
+                }
+            }
+        }
+
+        return tileArray;
+    }
+    // 各要素を反転させた二次元配列を返す
+    public int[,] InvertArray(int[,] array)
+    {
+        int rows = array.GetLength(0); // 行数
+        int cols = array.GetLength(1); // 列数
+        int[,] invertArray = new int[rows, cols];
+
+        // 二重ループで全要素にアクセス
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                // 算術演算で反転：タイルの状態が0か1の場合、1 - 値で反転可能
+                invertArray[i, j] = 1 - array[i, j];
+            }
+        }
+        return invertArray;
+    }
+    // 各要素をマージして結果を返す
+    public int[,] MergeTileArrays(int[,] array1, int[,] array2)
+    {
+        // 配列のサイズが同じであることを前提とする
+        int rows = array1.GetLength(0);
+        int cols = array1.GetLength(1);
+
+        int[,] mergedArray = new int[rows, cols];
+
+        // 各セルごとにマージ処理を実施
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                // どちらかの配列でタイルがある場合は、結果を1にする
+                if (array1[i, j] == 1 || array2[i, j] == 1)
+                {
+                    mergedArray[i, j] = 1;
+                }
+                else
+                {
+                    mergedArray[i, j] = 0;
+                }
+            }
+        }
+
+        return mergedArray;
+    }
+    // 二次元配列の内容をコンソールに出力する
+    public void DebugTileArray(int[,] array)
+    {
+        StringBuilder sb = new StringBuilder();
+        int rows = array.GetLength(0);
+        int cols = array.GetLength(1);
+        for (int y = cols - 1; y >= 0; y--)  // 上から下に表示するため、逆順でループ
+        {
+            for (int x = 0; x < rows; x++)
+            {
+                sb.Append(array[x, y] + " ");
+            }
+            sb.AppendLine();
+        }
+        Debug.Log(sb.ToString());
+    }
+
+
+    /// <summary>
+    /// 自動生成後に数秒遅延させてからA*パスをスキャンさせる
+    /// </summary>
+    /// <returns></returns>
     IEnumerator DelayedScan()
     {
         yield return new WaitForSeconds(1f);
@@ -93,27 +233,64 @@ public class TilemapGenerator : MMTilemapGenerator
     }
 
     /// <summary>
-    /// メイン通路の開始位置と方向変更距離をランダムに変更する
+    /// 生成ロジックにランダム性を持たせる
     /// </summary>
     public void RandomChangeMap()
     {
-        int startX = 0;
-        int changeDistance = 0;
-
         foreach (MMTilemapGeneratorLayer layer in Layers)
         {
             if (layer.Name == "MainCorridor")
             {
-                startX = UnityEngine.Random.Range(0, layer.GridWidth);
-                layer.PathStartPosition.x = startX;
+                layer.GridWidth = GridWidth.y - 5;
+                layer.GridHeight = GridHeight.y;
 
-                changeDistance = UnityEngine.Random.Range(-2, 2);
-                layer.PathDirectionChangeDistance = changeDistance;
+                // スタート座標を左か右かランダムに決定する
+                if (UnityEngine.Random.Range(0, layer.GridWidth) < layer.GridWidth / 2)
+                {
+                    _startX = 0;
+                    layer.PathDirectionChangeDistance = -2;
+                }
+                else
+                {
+                    _startX = layer.GridWidth - 1;
+                    layer.PathDirectionChangeDistance = 2;
+                }
+                layer.PathStartPosition.x = _startX;
             }
 
-            if (layer.Name == "RandomWalk")
+            if (layer.Name == "Detour1" || layer.Name == "Detour2")
             {
-                layer.RandomWalkStartingPoint.x = startX;
+                layer.GridWidth = GridWidth.y - 5;
+                layer.GridHeight = GridHeight.y - 5;
+
+                if (_startX < layer.GridWidth / 2)
+                {
+                    layer.PathStartPosition.x = 0;
+                    layer.PathDirection = MMGridGeneratorPath.Directions.LeftToRight;
+                }
+                else
+                {
+                    layer.PathStartPosition.x = layer.GridWidth;
+                    layer.PathDirection = MMGridGeneratorPath.Directions.RightToLeft;
+                }
+
+                if (layer.Name == "Detour1")
+                {
+                    layer.PathStartPosition.y = UnityEngine.Random.Range(0, layer.GridHeight / 2);
+                }
+                else if (layer.Name == "Detour2")
+                {
+                    layer.PathStartPosition.y = UnityEngine.Random.Range(layer.GridHeight / 2, layer.GridHeight);
+                }
+
+                if (layer.PathStartPosition.y < layer.GridHeight / 2)
+                {
+                    layer.PathDirectionChangeDistance = UnityEngine.Random.Range(-3, 1);
+                }
+                else
+                {
+                    layer.PathDirectionChangeDistance = UnityEngine.Random.Range(1, 3);
+                }
             }
         }
     }
@@ -124,7 +301,7 @@ public class TilemapGenerator : MMTilemapGenerator
     public void TilemapSmooth()
     {
         // タイルマップのクリーンアップ
-        for (int i = 0; i<_maxIterationsCount; i++)
+        for (int i = 0; i<_maxTileIterationsCount; i++)
         {
             CleanupTiles();
 
@@ -164,7 +341,7 @@ public class TilemapGenerator : MMTilemapGenerator
                 Sprite sprite = GetTileSprite(position);
 
                 // 隣接タイル数を取得
-                int adjacentCount = GetAdjacentTileCount(position);
+                int adjacentCount = GetAdjacentTileCount(position, frontAdjacentOffsets);
 
                 // 削除条件: 隣接タイルが3マス未満 && タイルのスプライトが一致
                 if (adjacentCount < 4 && sprite == targetSprite)
@@ -199,7 +376,7 @@ public class TilemapGenerator : MMTilemapGenerator
                 Sprite sprite = GetTileSprite(position);
 
                 // 隣接タイル数を取得
-                int adjacentCount = GetAdjacentTileCount(position);
+                int adjacentCount = GetAdjacentTileCount(position, frontAdjacentOffsets);
 
                 // 削除条件: 隣接タイルが3マス未満 && タイルのスプライトが一致
                 if (adjacentCount < 4 && sprite == targetSprite)
@@ -236,12 +413,12 @@ public class TilemapGenerator : MMTilemapGenerator
     }
 
     /// <summary>
-    /// 指定位置の隣接タイル数を取得する
+    /// 指定位置の隣接タイルを取得する
     /// </summary>
-    private int GetAdjacentTileCount(Vector3Int position)
+    private int GetAdjacentTileCount(Vector3Int position, Vector3Int[] AdjacentOffsets)
     {
         int count = 0;
-        foreach (Vector3Int offset in adjacentOffsets)
+        foreach (Vector3Int offset in AdjacentOffsets)
         {
             Vector3Int adjacentPosition = position + offset;
             if (targetTilemap.GetTile(adjacentPosition) != null)
@@ -275,41 +452,72 @@ public class TilemapGenerator : MMTilemapGenerator
         boxCollider.size = new Vector2(bounds.size.x, bounds.size.y);
     }
 
+    /// <summary>
+    /// スタートとゴールの座標を設定する
+    /// </summary>
     public void PlaceStartAndExit()
     {
         if (InitialSpawn != null && Exit != null)
         {
-            int width = GridWidth.y / 2;
-            int height = GridHeight.y / 2;
-            Vector3Int startCell = new Vector3Int(-width + 5, -height + 5, 0);
-            Vector3Int exitCell = new Vector3Int(width - 5, height - 5, 0);
+            // ObstacleTilemapのグリッド配列を取得
+            _obstacleTilemapGrid = GetObstacleGrid(ObstaclesTilemap);
 
-            while (startCell.x < width)
+            int width = _obstacleTilemapGrid.GetLength(0);      // 横方向のセル数
+            int height = _obstacleTilemapGrid.GetLength(1);     // 縦方向のセル数
+
+            int topRowStartZero = -1;
+            int topRowEndZero = -1;
+            int bottomRowStartZero = -1;
+            int bottomRowEndZero = -1;
+
+            // 一番上の行の0範囲を取得
+            for (int x = 0; x < width; x++)
             {
-                if (!ObstaclesTilemap.HasTile(startCell))
+                if (topRowStartZero < 0)
                 {
-                    if (GetAdjacentTileCount(startCell) == 0)
+                    if (_obstacleTilemapGrid[x, height - 1] == 0)
                     {
-                        break;
+                        topRowStartZero = x;
                     }
                 }
-                startCell.x++;
-            }
-
-            while (exitCell.x > -width)
-            {
-                if (!ObstaclesTilemap.HasTile(exitCell))
+                else
                 {
-                    if (GetAdjacentTileCount(exitCell) == 0)
+                    if (_obstacleTilemapGrid[x, height - 1] == 0)
                     {
-                        break;
+                        topRowEndZero = x;
                     }
                 }
-                exitCell.x--;
+            }
+            // 一番下の行の0範囲を取得
+            for (int x = 0; x < width; x++)
+            {
+                if (bottomRowStartZero < 0)
+                {
+                    if (_obstacleTilemapGrid[x, 0] == 0)
+                    {
+                        bottomRowStartZero = x;
+                    }
+                }
+                else
+                {
+                    if (_obstacleTilemapGrid[x, 0] == 0)
+                    {
+                        bottomRowEndZero = x;
+                    }
+                }
             }
 
-            InitialSpawn.position = ObstaclesTilemap.CellToWorld(startCell) + new Vector3(0.5f, 0.5f, 0);
-            Exit.position = ObstaclesTilemap.CellToWorld(exitCell) + new Vector3(0.5f, 0.5f, 0);
+            // スタート座標を設定
+            int bottomCenter = bottomRowStartZero + (bottomRowEndZero - bottomRowStartZero) / 2;
+            Vector3Int startCell = new Vector3Int(bottomCenter - GridWidth.y / 2, 0 - GridHeight.y / 2, 0);
+            InitialSpawn.position = ObstaclesTilemap.CellToWorld(startCell) - new Vector3(0.5f, 0.5f, 0f);
+            InitialSpawn.localScale = new Vector3Int(1 + bottomRowEndZero - bottomRowStartZero, 1, 1);
+
+            // ゴール座標を設定
+            int topCenter = topRowStartZero + (topRowEndZero - topRowStartZero) / 2;
+            Vector3Int exitCell = new Vector3Int(topCenter - GridWidth.y / 2, -1 + GridHeight.y / 2, 0);
+            Exit.position = ObstaclesTilemap.CellToWorld(exitCell) - new Vector3(0.5f, 0.5f, 0f);
+            Exit.localScale = new Vector3Int(1 + topRowEndZero - topRowStartZero, 1, 1);
         }
     }
 
@@ -318,81 +526,155 @@ public class TilemapGenerator : MMTilemapGenerator
     /// </summary>
     public void SpawnPrefabs()
     {
-        // ゲーム中でなければ処理しない
         if (!Application.isPlaying)
         {
             return;
         }
 
-        UnityEngine.Random.InitState(GlobalSeed);
+        // スポーン座標の探索をする二次元配列
+        int[,] spawnGrid = MergeTileArrays(_obstacleTilemapGrid, InvertArray(_mainCorridorGrid));
 
-        // Obstacles Tilemap のセル範囲を取得
-        BoundsInt tileBonuds = ObstaclesTilemap.cellBounds;
-        int cellXMin = tileBonuds.xMin;
-        int cellXMax = tileBonuds.xMax;
-        int cellYMin = tileBonuds.yMin;
-        int cellYMax = tileBonuds.yMax;
+        // 有効セル座標のリスト
+        List<Vector3Int> largevalidCells = new List<Vector3Int>();      // 周囲24マスが、0のセル
+        List<Vector3Int> smallvalidCells = new List<Vector3Int>();      // 周囲8マスが、0のセル
 
-        int width = UnityEngine.Random.Range(GridWidth.x, GridWidth.y);
-        int height = UnityEngine.Random.Range(GridHeight.x, GridHeight.y);
+        // Gridの行数・列数を取得する
+        int width = spawnGrid.GetLength(0);
+        int height = spawnGrid.GetLength(1);
 
-        foreach (SpawnData data in PrefabsToSpawn)
+        // 周囲24マスの隣接するセルが0のセル座標を取得する
+        for (int i = 2; i < width - 2; i++)
         {
-            for (int i = 0; i < data.Quantity; i++)
+            for (int j = height - 3; 1 < j; j--)
             {
-                Vector3 spawnPosition = Vector3.zero;
-                bool validPosition = false;
-                int iterationsCount = 0;
+                bool allNeighborsZero = true;
 
-                while (!validPosition && (iterationsCount < _maxIterationsCount))
+                // 5×5の領域をチェックする
+                for (int di = -2; di <= 2; di++)
                 {
-                    switch (data.SpawnCategory)
+                    for (int dj = -2; dj <= 2; dj++)
                     {
-                        case SpawnCategory.Enemy:
-                            // まずは全体のランダム位置を取得（ここでは既存の GetRandomPosition を利用）
-                            spawnPosition = MMTilemap.GetRandomPosition(ObstaclesTilemap, TargetGrid, width, height, false, width * height * 2);
-                            break;
-
-                        case SpawnCategory.Default:
-                        default:
-                            // 制限なしの場合は、全体のランダム位置
-                            spawnPosition = MMTilemap.GetRandomPosition(ObstaclesTilemap, TargetGrid, width, height, false, width * height * 2);
-                            break;
-                    }
-
-                    // Enemy 用の場合、スタート地点やゴール地点の周辺は避ける
-                    if (data.SpawnCategory == SpawnCategory.Enemy)
-                    {
-                        if ((InitialSpawn != null && Vector3.Distance(spawnPosition, InitialSpawn.position) < EnemySafeDistance) ||
-                            (Exit != null && Vector3.Distance(spawnPosition, Exit.position) < EnemySafeDistance))
+                        if (spawnGrid[i+di, j+dj] != 0)
                         {
-                            iterationsCount++;
-                            continue; // 安全距離内なら再試行
-                        }
-                    }
-
-                    // 既存処理: 既に配置済みオブジェクトとの最小距離チェック
-                    bool tooClose = false;
-                    foreach (Vector3 filledPosition in _filledPositions)
-                    {
-                        if (Vector3.Distance(spawnPosition, filledPosition) < PrefabsSpawnMinDistance)
-                        {
-                            tooClose = true;
+                            allNeighborsZero = false;
                             break;
                         }
                     }
-                    if (tooClose)
+                    if (!allNeighborsZero)
                     {
-                        iterationsCount++;
-                        continue;
+                        break;
                     }
-
-                    validPosition = true;
                 }
 
-                // 有効な位置が見つかったら生成し、配置済みリストに追加
-                Instantiate(data.Prefab, spawnPosition, Quaternion.identity);
-                _filledPositions.Add(spawnPosition);
+                // 周囲24セルがすべて0であれば、結果リストに追加
+                if (allNeighborsZero)
+                {
+                    // Debug.Log($"有効な大きいセル座標: [{i}, {j}]");
+                    largevalidCells.Add(new Vector3Int(i, j, 0));
+
+                    // このセルと隣接セルを除外対象に設定
+                    for (int di = -2; di <= 2; di++)
+                    {
+                        for (int dj = -2; dj <= 2; dj++)
+                        {
+                            // ※インデックスが配列範囲内であることを必要に応じて確認してください
+                            spawnGrid[i + di, j + dj] = 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        Debug.Log("大きい有効座標を減らした状態");
+        DebugTileArray(spawnGrid);
+
+        // 周囲8マスの隣接するセルが0のセル座標を取得する
+        for (int i = 2; i < width - 2; i++)
+        {
+            for (int j = height - 3; 1 < j; j--)
+            {
+                bool allNeighborsZero = true;
+
+                // 3×3の領域をチェックする
+                for (int di = -1; di <= 1; di++)
+                {
+                    for (int dj = -1; dj <= 1; dj++)
+                    {
+                        if (spawnGrid[i+di, j+dj] != 0)
+                        {
+                            allNeighborsZero = false;
+                            break;
+                        }
+                    }
+                    if (!allNeighborsZero)
+                    {
+                        break;
+                    }
+                }
+
+                // 周囲8セルがすべて0であれば、結果リストに追加
+                if (allNeighborsZero)
+                {
+                    // Debug.Log($"有効な小さいセル座標: [{i}, {j}]");
+                    smallvalidCells.Add(new Vector3Int(i, j, 0));
+
+                    // このセルと隣接セルを除外対象に設定
+                    for (int di = -1; di <= 1; di++)
+                    {
+                        for (int dj = -1; dj <= 1; dj++)
+                        {
+                            // ※インデックスが配列範囲内であることを必要に応じて確認してください
+                            spawnGrid[i + di, j + dj] = 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        Debug.Log($"大きい有効座標数: {largevalidCells.Count}");
+        Debug.Log($"小さい有効座標数: {smallvalidCells.Count}");
+
+        UnityEngine.Random.InitState(GlobalSeed);
+
+        foreach (SpawnData spawnData in PrefabsToSpawn)
+        {
+            for (int i = 0; i < spawnData.Quantity; i++)
+            {
+                if (SpawnCategory.Enemy == spawnData.Category)
+                {
+                    int index = UnityEngine.Random.Range(0, largevalidCells.Count);
+                    Vector3 spawnPosition = ObstaclesTilemap.CellToWorld(largevalidCells[index]) - new Vector3(GridWidth.y / 2, GridHeight.y / 2, 0);
+                    Instantiate(spawnData.Prefab, spawnPosition, Quaternion.identity);
+
+                    // 一度選ばれた座標は削除する
+                    largevalidCells.RemoveAt(index);
+
+                    if (largevalidCells.Count <= 0)
+                    {
+                        Debug.LogWarning("有効なセル座標がなくなりました");
+                        break;
+                    }
+                }
+                else if (SpawnCategory.Item == spawnData.Category)
+                {
+                    int index = UnityEngine.Random.Range(0, smallvalidCells.Count);
+                    Vector3 spawnPosition = ObstaclesTilemap.CellToWorld(smallvalidCells[index]) - new Vector3(GridWidth.y / 2, GridHeight.y / 2, 0);
+                    Instantiate(spawnData.Prefab, spawnPosition, Quaternion.identity);
+
+                    // 一度選ばれた座標は削除する
+                    smallvalidCells.RemoveAt(index);
+
+                    if (smallvalidCells.Count <= 0)
+                    {
+                        Debug.LogWarning("有効なセル座標がなくなりました");
+                        break;
+                    }
+                }
+            }
+            if (largevalidCells.Count <= 0 && smallvalidCells.Count <= 0)
+            {
+                Debug.LogWarning("有効なセル座標がなくなりました");
+                break;
             }
         }
     }

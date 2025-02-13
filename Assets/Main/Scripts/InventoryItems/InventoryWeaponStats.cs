@@ -310,7 +310,6 @@ public class InventoryWeaponStats : InventoryWeapon, IParameterBonus
     /// </summary>
     public override InventoryItem Copy()
     {
-        Debug.Log($"アイテムデータをコピーします: {this.name}");
         string name = this.name;
         InventoryWeaponStats clone = Instantiate(this) as InventoryWeaponStats;
         clone.name = name;

@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Main/Scenes/SceneHub.unity
+    guid: 43e919ca0e85e714c9cb4e393b260b23
+  - enabled: 1
+    path: Assets/Main/Scenes/SceneDungeonFloor.unity
+    guid: 18bca1072801a284cb84ce40c5713c2e
+  - enabled: 1
+    path: Assets/Main/Scenes/SceneDungeonBoss.unity
+    guid: fbfa3318b2492214b8ac6528ef08e2e2
+  - enabled: 1
     path: Assets/Main/Scenes/SceneLoading.unity
     guid: 58992baf53bfc28449af2c7b5ac6285e
-  - enabled: 1
-    path: Assets/Main/Scenes/SceneDungeon.unity
-    guid: 18bca1072801a284cb84ce40c5713c2e
   - enabled: 1
     path: Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Core/MMSceneLoading/LoadingScreens/LoadingScreen.unity
     guid: 888394d52616e5e42b3b54c3f2bbd3eb
