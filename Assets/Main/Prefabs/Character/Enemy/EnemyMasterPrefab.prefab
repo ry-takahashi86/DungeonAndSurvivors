@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Label: 
-  Radius: 8
+  Radius: 3
   DetectionOriginOffset: {x: 0, y: 0, z: 0}
   TargetLayer:
     serializedVersion: 2
@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 1108523444638303741}
   - component: {fileID: 3322692018435538643}
   - component: {fileID: -7931889708461560150}
+  - component: {fileID: 8452023488445379274}
   m_Layer: 13
   m_Name: EnemyMasterPrefab
   m_TagString: Untagged
@@ -922,6 +923,26 @@ MonoBehaviour:
   InitialBattleParameter: {fileID: 11400000, guid: 5b144f446398e604180fea3cf71960bd,
     type: 2}
   BattleParameter: {fileID: 0}
+--- !u!114 &8452023488445379274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2490538515427847325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72de0b0360096ea41a18d17864ecb963, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BoundsBasedOn: 1
+  ExecuteOnEnable:
+    m_PersistentCalls:
+      m_Calls: []
+  ExecuteOnDisable:
+    m_PersistentCalls:
+      m_Calls: []
+  LifeTime: 0
 --- !u!1 &3879520155133928519
 GameObject:
   m_ObjectHideFlags: 0

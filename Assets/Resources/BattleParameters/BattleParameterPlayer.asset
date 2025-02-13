@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c400836f520b9924ababfb863068ecb7, type: 3}
   m_Name: BattleParameterPlayer
   m_EditorClassIdentifier: 
-  _strength: 5
+  _strength: 300
   _dexterity: 5
   _agility: 5
   _intelligence: 5

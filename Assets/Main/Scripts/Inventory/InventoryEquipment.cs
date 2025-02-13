@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 [Serializable]
@@ -25,7 +24,7 @@ public class SerializedInventoryWeaponStats
     public List<ItemBonus>[] AdditionalBonuses;
 }
 
-public class InventoryManager : Inventory
+public class InventoryEquipment : Inventory
 {
     /// <summary>
     /// インベントリを保存する(InventoryWeaponStats対応版)
