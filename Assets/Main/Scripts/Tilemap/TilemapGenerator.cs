@@ -31,13 +31,15 @@ public class TilemapGenerator : MMTilemapGenerator
     public Grid TargetGrid;
     public Tilemap ObstaclesTilemap;
     public MMTilemapShadow WallsShadowTilemap;
+    public MMTilemapTileReplacer GroundMinimapTilemap;
+    public MMTilemapTileReplacer WallMinimapTilemap;
     public LevelManager TargetLevelManager;
 
     [Header("Spawn")]
     public Transform InitialSpawn;              // スタート地点
     public Transform Exit;                      // ゴール地点
     public List<SpawnData> PrefabsToSpawn;      // 生成するプレハブのリスト
-    protected int _startX = 0;                      // スタート座標
+    protected int _startX = 0;                  // スタート座標
 
     [Header("Tilemap Cleanup")]
     public Tilemap targetTilemap;                   // クリーン対象のタイルマップ
@@ -73,6 +75,7 @@ public class TilemapGenerator : MMTilemapGenerator
 
         TilemapSmooth();
         HandleWallsShadow();
+        HandleMinimap();
         ResizeLevelManager();
 
         Debug.Log("MainCorridorの結果");
@@ -441,6 +444,21 @@ public class TilemapGenerator : MMTilemapGenerator
     }
 
     /// <summary>
+    /// ミニマップ用のタイルマップを生成する
+    /// </summary>
+    public void HandleMinimap()
+    {
+        if (GroundMinimapTilemap != null)
+        {
+            GroundMinimapTilemap.UpdateTilemap();
+        }
+        if (WallMinimapTilemap != null)
+        {
+            WallMinimapTilemap.UpdateTilemap();
+        }
+    }
+
+    /// <summary>
     /// レベルマネージャーのカメラ範囲判定をリサイズする
     /// </summary>
     public void ResizeLevelManager()
@@ -449,7 +467,7 @@ public class TilemapGenerator : MMTilemapGenerator
 
         Bounds bounds = ObstaclesTilemap.localBounds;
         boxCollider.offset = bounds.center;
-        boxCollider.size = new Vector2(bounds.size.x, bounds.size.y);
+        boxCollider.size = new Vector2(bounds.size.x, bounds.size.y + 5);
     }
 
     /// <summary>

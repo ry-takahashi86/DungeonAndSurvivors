@@ -142,7 +142,7 @@ public class GUIManagerMobile : MMSingleton<GUIManagerMobile>
 			{
                 if (DungeonManager.Instance.CurrentFloor <= DungeonManager.Instance.MaxFloor)
                 {
-                    FloorText.text = DungeonManager.Instance.CurrentFloor.ToString() + "F";
+                    FloorText.text = DungeonManager.Instance.CurrentFloor.ToString() + "F/" + DungeonManager.Instance.MaxFloor + "F";
                 }
 				else
                 {
